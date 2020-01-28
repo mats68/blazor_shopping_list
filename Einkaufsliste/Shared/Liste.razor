@@ -9,9 +9,9 @@
     {
     <li>
         <div @onclick="@(() => ToggleIsDone(einkauf))">
-            <p class="@(einkauf.IsDone ? "line-through" : "")">
+            <span class="@Erledigt(einkauf)">
                 @einkauf.Name
-            </p>
+            </span>
         </div>
     </li>
     }
@@ -20,6 +20,12 @@
 @code {
     private List<Einkauf> _Liste;
     private string newEinkauf;
+
+    private string Erledigt(Einkauf item)
+    {
+        return item.IsDone ? "line-through" : "";
+    }
+
 
     protected override async Task OnInitializedAsync()
     {
