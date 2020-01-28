@@ -11,7 +11,12 @@ namespace Einkaufsliste
 
         public void AddEinkauf(Einkauf item)
         {
-            List.Add(item);
+
+            if (!string.IsNullOrWhiteSpace(item.Name))
+            {
+                List.Add(item);
+                // LocalStorage.SetItemAsync("Current", Liste);
+            }
         }
 
         public async Task GetList()

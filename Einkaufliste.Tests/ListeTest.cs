@@ -25,10 +25,19 @@ namespace Einkaufliste.Tests
             [Fact]
             public void AddItem()
             {
-                Assert.Equal(3, einkaufServiceTest.List.Count());
+                var count = einkaufServiceTest.List.Count();
                 einkaufServiceTest.AddEinkauf(new Einkauf() { Name = "Banane" });
-                Assert.Equal(4, einkaufServiceTest.List.Count());
+                Assert.Equal(count+1, einkaufServiceTest.List.Count());
             }
+
+            [Fact]
+            public void AddEmptyItemNoAppend()
+            {
+                var count = einkaufServiceTest.List.Count();
+                einkaufServiceTest.AddEinkauf(new Einkauf() { Name = "" });
+                Assert.Equal(count, einkaufServiceTest.List.Count());
+            }
+
         }
     }
 }

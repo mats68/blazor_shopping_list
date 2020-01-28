@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +32,8 @@ namespace Einkaufsliste.Shared
 
         public void AddEinkauf()
         {
-            if (!string.IsNullOrWhiteSpace(newEinkauf))
-            {
-                EinkaufService.List.Add(new Einkauf { Name = newEinkauf });
-                newEinkauf = string.Empty;
-            }
-
+            EinkaufService.AddEinkauf(new Einkauf { Name = newEinkauf });
+            newEinkauf = string.Empty;
         }
         public void ToggleIsDone(Einkauf item)
         {
