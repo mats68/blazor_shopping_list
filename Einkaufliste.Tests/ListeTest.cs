@@ -1,6 +1,7 @@
 using Einkaufsliste;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Einkaufliste.Tests
@@ -23,18 +24,18 @@ namespace Einkaufliste.Tests
             }
 
             [Fact]
-            public void AddItem()
+            public async Task AddItem()
             {
                 var count = einkaufServiceTest.List.Count();
-                einkaufServiceTest.AddEinkauf(new Einkauf() { Name = "Banane" });
+                await einkaufServiceTest.AddEinkauf(new Einkauf() { Name = "Banane" });
                 Assert.Equal(count+1, einkaufServiceTest.List.Count());
             }
 
             [Fact]
-            public void AddEmptyItemNoAppend()
+            public async Task AddEmptyItemNoAppend()
             {
                 var count = einkaufServiceTest.List.Count();
-                einkaufServiceTest.AddEinkauf(new Einkauf() { Name = "" });
+                await einkaufServiceTest.AddEinkauf(new Einkauf() { Name = "" });
                 Assert.Equal(count, einkaufServiceTest.List.Count());
             }
 

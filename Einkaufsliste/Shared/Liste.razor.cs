@@ -30,14 +30,14 @@ namespace Einkaufsliste.Shared
             Liste = EinkaufService.List;
         }
 
-        public void AddEinkauf()
+        public async Task AddEinkauf()
         {
-            EinkaufService.AddEinkauf(new Einkauf { Name = newEinkauf });
+            await Task.Run(() => EinkaufService.AddEinkauf(new Einkauf { Name = newEinkauf }));
             newEinkauf = string.Empty;
         }
-        public void ToggleIsDone(Einkauf item)
+        public async Task ToggleIsDone(Einkauf item)
         {
-            item.IsDone = !item.IsDone;
+            await Task.Run(() => item.IsDone = !item.IsDone);
         }
 
     }

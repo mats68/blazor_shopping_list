@@ -18,12 +18,12 @@ namespace Einkaufsliste
             LocalStorage = localStorage;
         }
 
-        public void AddEinkauf(Einkauf item)
+        public async Task AddEinkauf(Einkauf item)
         {
             if (!string.IsNullOrWhiteSpace(item.Name))
             {
                 List.Add(item);
-                LocalStorage.SetItemAsync("current", List);
+                await Save();
             }
         }
 
@@ -35,6 +35,17 @@ namespace Einkaufsliste
                 list = new List<Einkauf>();
             }
             List = list;
+        }
+
+        public async Task ToggleIsDone(Einkauf item)
+        {
+            item.IsDone = !item.IsDone;
+            await Save();
+        }
+
+        private async Task Save()
+        {
+            await LocalStorage.SetItemAsync("current", List);
         }
     }
 }

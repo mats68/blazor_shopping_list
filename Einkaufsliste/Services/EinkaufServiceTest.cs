@@ -9,13 +9,12 @@ namespace Einkaufsliste
     {
         public List<Einkauf> List { get; set; }
 
-        public void AddEinkauf(Einkauf item)
+        public async Task AddEinkauf(Einkauf item)
         {
 
             if (!string.IsNullOrWhiteSpace(item.Name))
             {
-                List.Add(item);
-                // LocalStorage.SetItemAsync("Current", Liste);
+                await Task.Run(() => List.Add(item));
             }
         }
 
@@ -29,6 +28,11 @@ namespace Einkaufsliste
                     new Einkauf(){Name = "Käse"},
                 });
             List = list;
+        }
+
+        public async Task ToggleIsDone(Einkauf item)
+        {
+            await Task.Run(() => item.IsDone = !item.IsDone);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Einkaufsliste
     {
         List<Einkauf> List { get; set; }
         Task GetList();
-        void AddEinkauf(Einkauf item);
+        Task AddEinkauf(Einkauf item);
+        Task ToggleIsDone(Einkauf item);
     }
 }
