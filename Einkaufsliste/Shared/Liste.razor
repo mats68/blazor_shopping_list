@@ -1,4 +1,4 @@
-﻿@inject IEinkaufService EinkaufService
+﻿@inherits ListeBase
 
     <form @onsubmit="AddEinkauf">
         <input @bind="newEinkauf" placeholder="Was willst du einkaufen ?" />
@@ -19,33 +19,3 @@
     }
 </ul>
 
-@code {
-    private List<Einkauf> _Liste;
-    private string newEinkauf;
-
-    private string Erledigt(Einkauf item)
-    {
-        return item.IsDone ? "line-through" : "";
-    }
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        _Liste = await EinkaufService.GetList();
-    }
-
-    private void AddEinkauf()
-    {
-        if (!string.IsNullOrWhiteSpace(newEinkauf))
-        {
-            _Liste.Add(new Einkauf { Name = newEinkauf });
-            newEinkauf = string.Empty;
-        }
-
-    }
-    private void ToggleIsDone(Einkauf item)
-    {
-        item.IsDone = !item.IsDone;
-    }
-
-}
