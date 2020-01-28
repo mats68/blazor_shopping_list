@@ -19,7 +19,7 @@ namespace Einkaufliste.Tests
             internal async void Init()
             {
                 einkaufServiceTest = new EinkaufServiceTest();
-                einkaufServiceTest.List = await einkaufServiceTest.GetList();
+                await einkaufServiceTest.GetList();
             }
 
             [Fact]

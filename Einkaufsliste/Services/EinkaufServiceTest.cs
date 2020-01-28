@@ -14,16 +14,16 @@ namespace Einkaufsliste
             List.Add(item);
         }
 
-        public async Task<List<Einkauf>> GetList()
+        public async Task GetList()
         {
-            var list = new List<Einkauf>()
-            {
-                new Einkauf(){Name = "Radieschen"},
-                new Einkauf(){Name = "Brot"},
-                new Einkauf(){Name = "Käse"},
-            };
-            return list;
-
+            var list = await Task.FromResult<List<Einkauf>>(
+                new List<Einkauf>()
+                {
+                    new Einkauf(){Name = "Radieschen"},
+                    new Einkauf(){Name = "Brot"},
+                    new Einkauf(){Name = "Käse"},
+                });
+            List = list;
         }
     }
 }

@@ -1,21 +1,28 @@
 ﻿@inherits ListeBase
 
+@if (Liste == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
     <form @onsubmit="AddEinkauf">
         <input @bind="newEinkauf" placeholder="Was willst du einkaufen ?" />
         <button type="submit">Add todo</button>
     </form>
 
-<ul>
+    <ul>
 
-    @foreach (var einkauf in _Liste)
-    {
-    <li>
-        <div @onclick="@(() => ToggleIsDone(einkauf))">
-            <span class="@Erledigt(einkauf)">
-                @einkauf.Name
-            </span>
-        </div>
-    </li>
-    }
-</ul>
+        @foreach (var einkauf in Liste)
+        {
+            <li>
+                <div @onclick="@(() => ToggleIsDone(einkauf))">
+                    <span class="@Erledigt(einkauf)">
+                        @einkauf.Name
+                    </span>
+                </div>
+            </li>
+        }
+    </ul>
+}
 

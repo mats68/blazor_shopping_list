@@ -9,12 +9,12 @@ namespace Einkaufsliste.Shared
     public class ListeBase: ComponentBase
     {
 
+
         [Inject]
-        IEinkaufService EinkaufService { get; set;  }
+        IEinkaufService EinkaufService { get; set; }
 
-        public List<Einkauf> _Liste;
+        public List<Einkauf> Liste { get; set; }
         public string newEinkauf;
-
 
         
         public string Erledigt(Einkauf item)
@@ -25,14 +25,15 @@ namespace Einkaufsliste.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            _Liste = await EinkaufService.GetList();
+            await EinkaufService.GetList();
+            Liste = EinkaufService.List;
         }
 
         public void AddEinkauf()
         {
             if (!string.IsNullOrWhiteSpace(newEinkauf))
             {
-                _Liste.Add(new Einkauf { Name = newEinkauf });
+                EinkaufService.List.Add(new Einkauf { Name = newEinkauf });
                 newEinkauf = string.Empty;
             }
 
