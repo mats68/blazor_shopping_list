@@ -13,6 +13,7 @@ namespace Einkaufsliste
 
         public List<Einkauf> List { get; set; }
         public Einkauf CurrentItem { get; set; }
+        public bool IsSortByName { get ; set ; }
 
         public EinkaufService(ILocalStorageService localStorage)
         {
@@ -23,6 +24,8 @@ namespace Einkaufsliste
         {
             if (!string.IsNullOrWhiteSpace(item.Name))
             {
+                var newId = List.Count() > 0 ? List.Max(e => e.Id) + 1 : 1;
+                item.Id = newId;
                 List.Add(item);
                 await Save();
                 CurrentItem = item;
@@ -61,5 +64,19 @@ namespace Einkaufsliste
                 CurrentItem = null;
             }
         }
+
+        public void Sort()
+        {
+            IsSortByName = !IsSortByName;
+            if (IsSortByName)
+            {
+                List = List.OrderBy(e => e.Name).ToList();
+            } else
+            {
+                List = List.OrderBy(e => e.Id).ToList();
+            }
+
+        }
+
     }
 }

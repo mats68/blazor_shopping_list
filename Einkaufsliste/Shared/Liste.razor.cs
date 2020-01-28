@@ -14,7 +14,12 @@ namespace Einkaufsliste.Shared
         [Inject]
         IEinkaufService EinkaufSrv { get; set; }
 
-        public List<Einkauf> Liste { get; set; }
+        public List<Einkauf> Liste {
+            get
+            {
+                return EinkaufSrv.List;
+            }
+        }
         public string newEinkauf;
 
         public Einkauf CurrentItem
@@ -31,7 +36,6 @@ namespace Einkaufsliste.Shared
         protected override async Task OnInitializedAsync()
         {
             await EinkaufSrv.GetList();
-            Liste = EinkaufSrv.List;
         }
 
         public async Task AddEinkauf()
@@ -46,6 +50,21 @@ namespace Einkaufsliste.Shared
         public async Task DeleteEinkauf()
         {
             await Task.Run(() => EinkaufSrv.DeleteEinkauf());
+        }
+        
+        public string GetSortClass ()
+        {
+            return EinkaufSrv.IsSortByName ? "btn-outline-info" : "btn-info";
+        }
+
+        public string GetSortTitle()
+        {
+            return EinkaufSrv.IsSortByName ? "Nach Eintragung sortieren" : "Nach Namen sortieren";
+        }
+
+        public void Sort()
+        {
+            EinkaufSrv.Sort();
         }
 
     }

@@ -9,12 +9,15 @@ namespace Einkaufsliste
     {
         public List<Einkauf> List { get; set; }
         public Einkauf CurrentItem { get; set; }
+        public bool IsSortByName { get; set; }
 
         public async Task AddEinkauf(Einkauf item)
         {
 
             if (!string.IsNullOrWhiteSpace(item.Name))
             {
+                var newId = List.Count() > 0 ? List.Max(e => e.Id) + 1 : 1;
+                item.Id = newId;
                 await Task.Run(() => List.Add(item));
                 CurrentItem = item;
             }
@@ -26,10 +29,10 @@ namespace Einkaufsliste
             var list = await Task.FromResult<List<Einkauf>>(
                 new List<Einkauf>()
                 {
-                    new Einkauf(){Name = "Radieschen"},
-                    new Einkauf(){Name = "Brot"},
-                    new Einkauf(){Name = "Käse"},
-                });
+                    new Einkauf(){Id = 1, Name = "Radieschen"},
+                    new Einkauf(){Id = 2, Name = "Brot"},
+                    new Einkauf(){Id = 3, Name = "Käse"},
+                });    
             List = list;
         }
 
@@ -51,5 +54,17 @@ namespace Einkaufsliste
             });
         }
 
+        public void Sort()
+        {
+            IsSortByName = !IsSortByName;
+            if (IsSortByName)
+            {
+                List = List.OrderBy(e => e.Name).ToList();
+            }
+            else
+            {
+                List = List.OrderBy(e => e.Id).ToList();
+            }
+        }
     }
 }

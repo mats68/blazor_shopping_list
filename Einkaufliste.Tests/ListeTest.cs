@@ -30,6 +30,7 @@ namespace Einkaufliste.Tests
                 await einkaufServiceTest.AddEinkauf(new Einkauf() { Name = "Banane" });
                 Assert.Equal(count+1, einkaufServiceTest.List.Count());
                 Assert.Equal("Banane", einkaufServiceTest.CurrentItem.Name);
+                Assert.Equal(4, einkaufServiceTest.List[3].Id);
             }
 
             [Fact]

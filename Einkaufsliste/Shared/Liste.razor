@@ -11,11 +11,19 @@ else
         {
             <button @onclick="DeleteEinkauf" class="btn btn-info" title="Delete Item @CurrentItem?.Name"><span class="oi oi-minus" /> </button>
         }
+        <button @onclick="Sort" class="btn @GetSortClass()" title="@GetSortTitle()"><span class="oi oi-sort-ascending" /> </button>
     </div>
+    <div></div>
 
     <form @onsubmit="AddEinkauf">
-        <input @bind="newEinkauf" placeholder="Was willst du einkaufen ?" />
-        <button type="submit" class="btn btn-primary" title="Hinzufügen"><span class="oi oi-plus" /></button>
+        <div class="form-row">
+            <div class="form-group col-md-2 col-6">
+                <input @bind="newEinkauf" class="form-control" placeholder="Was willst du einkaufen ?" />
+            </div>
+            <div class="form-group col-md-1 col-2">
+                <button type="submit" class="btn btn-primary" title="Hinzufügen"><span class="oi oi-plus" /></button>
+            </div>
+        </div>
     </form>
 
     <ul>
