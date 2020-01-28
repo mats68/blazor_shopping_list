@@ -1,5 +1,18 @@
-﻿<h3>Liste</h3>
+﻿@inject IEinkaufService EinkaufService
+
+<h3>Liste</h3>
+
+@foreach(var einkauf in _Liste)
+{
+    <div>@einkauf.Name </div>
+}
 
 @code {
+    private List<Einkauf> _Liste;
+
+    protected override void OnInitialized()
+    {
+        _Liste = EinkaufService.GetList();
+    }
 
 }

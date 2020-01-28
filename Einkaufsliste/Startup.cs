@@ -7,7 +7,7 @@ namespace Einkaufsliste
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<EinkaufServiceTest>();
+            services.AddSingleton<IEinkaufService, EinkaufServiceTest>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
