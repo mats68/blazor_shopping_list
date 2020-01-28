@@ -10,9 +10,9 @@
 @code {
     private List<Einkauf> _Liste;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _Liste = EinkaufService.GetList();
+        _Liste = await EinkaufService.GetList();
     }
 
 }

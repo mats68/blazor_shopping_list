@@ -7,14 +7,15 @@ namespace Einkaufsliste
 {
     public class EinkaufServiceTest : IEinkaufService
     {
-        public List<Einkauf> GetList()
+        public async Task<List<Einkauf>> GetList()
         {
-            return new List<Einkauf>()
+            var list = new List<Einkauf>()
             {
                 new Einkauf(){Name = "Radieschen"},
                 new Einkauf(){Name = "Brot"},
                 new Einkauf(){Name = "Käse"},
             };
+            return list;
 
         }
     }

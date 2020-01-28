@@ -7,6 +7,6 @@ namespace Einkaufsliste
 {
     interface IEinkaufService
     {
-        List<Einkauf> GetList();
+        Task<List<Einkauf>> GetList();
     }
 }
