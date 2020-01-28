@@ -1,18 +1,43 @@
 ﻿@inject IEinkaufService EinkaufService
 
-<h3>Liste</h3>
+<input @bind="newEinkauf" placeholder="Was willst du einkaufen ?" />
+<button @onclick="AddEinkauf">Add todo</button>
 
-@foreach(var einkauf in _Liste)
-{
-    <div>@einkauf.Name </div>
-}
+<ul>
+
+    @foreach (var einkauf in _Liste)
+    {
+    <li>
+        <div @onclick="@(() => ToggleIsDone(einkauf))">
+            <p class="@(einkauf.IsDone ? "line-through" : "")">
+                @einkauf.Name
+            </p>
+        </div>
+    </li>
+    }
+</ul>
 
 @code {
     private List<Einkauf> _Liste;
+    private string newEinkauf;
 
     protected override async Task OnInitializedAsync()
     {
         _Liste = await EinkaufService.GetList();
+    }
+
+    private void AddEinkauf()
+    {
+        if (!string.IsNullOrWhiteSpace(newEinkauf))
+        {
+            _Liste.Add(new Einkauf { Name = newEinkauf });
+            newEinkauf = string.Empty;
+        }
+
+    }
+    private void ToggleIsDone(Einkauf item)
+    {
+        item.IsDone = !item.IsDone;
     }
 
 }

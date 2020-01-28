@@ -181,3 +181,7 @@ app {
         display: block;
     }
 }
+
+.line-through {
+    text-decoration: line-through;
+}

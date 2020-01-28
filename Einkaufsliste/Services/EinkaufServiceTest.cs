@@ -7,6 +7,13 @@ namespace Einkaufsliste
 {
     public class EinkaufServiceTest : IEinkaufService
     {
+        public List<Einkauf> List { get; set; }
+
+        public void AddEinkauf(Einkauf item)
+        {
+            List.Add(item);
+        }
+
         public async Task<List<Einkauf>> GetList()
         {
             var list = new List<Einkauf>()
