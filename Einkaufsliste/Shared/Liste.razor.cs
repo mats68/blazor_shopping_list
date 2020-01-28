@@ -37,7 +37,7 @@ namespace Einkaufsliste.Shared
         }
         public async Task ToggleIsDone(Einkauf item)
         {
-            await Task.Run(() => item.IsDone = !item.IsDone);
+            await Task.Run(() => EinkaufService.ToggleIsDone(item));
         }
 
     }
