@@ -12,12 +12,16 @@ namespace Einkaufsliste.Shared
 
 
         [Inject]
-        IEinkaufService EinkaufService { get; set; }
+        IEinkaufService EinkaufSrv { get; set; }
 
         public List<Einkauf> Liste { get; set; }
         public string newEinkauf;
 
-        
+        public Einkauf CurrentItem
+        {
+            get { return EinkaufSrv.CurrentItem; }
+        }
+
         public string Erledigt(Einkauf item)
         {
             return item.IsDone ? "line-through" : "";
@@ -26,18 +30,22 @@ namespace Einkaufsliste.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            await EinkaufService.GetList();
-            Liste = EinkaufService.List;
+            await EinkaufSrv.GetList();
+            Liste = EinkaufSrv.List;
         }
 
         public async Task AddEinkauf()
         {
-            await Task.Run(() => EinkaufService.AddEinkauf(new Einkauf { Name = newEinkauf }));
+            await Task.Run(() => EinkaufSrv.AddEinkauf(new Einkauf { Name = newEinkauf }));
             newEinkauf = string.Empty;
         }
         public async Task ToggleIsDone(Einkauf item)
         {
-            await Task.Run(() => EinkaufService.ToggleIsDone(item));
+            await Task.Run(() => EinkaufSrv.ToggleIsDone(item));
+        }
+        public async Task DeleteEinkauf()
+        {
+            await Task.Run(() => EinkaufSrv.DeleteEinkauf());
         }
 
     }

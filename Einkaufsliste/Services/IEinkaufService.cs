@@ -8,8 +8,10 @@ namespace Einkaufsliste
     interface IEinkaufService
     {
         List<Einkauf> List { get; set; }
+        Einkauf CurrentItem { get; set; }
         Task GetList();
         Task AddEinkauf(Einkauf item);
         Task ToggleIsDone(Einkauf item);
+        Task DeleteEinkauf();
     }
 }

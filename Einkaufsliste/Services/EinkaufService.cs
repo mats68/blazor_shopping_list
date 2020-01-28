@@ -12,6 +12,7 @@ namespace Einkaufsliste
         ILocalStorageService LocalStorage { get; set; }
 
         public List<Einkauf> List { get; set; }
+        public Einkauf CurrentItem { get; set; }
 
         public EinkaufService(ILocalStorageService localStorage)
         {
@@ -24,6 +25,7 @@ namespace Einkaufsliste
             {
                 List.Add(item);
                 await Save();
+                CurrentItem = item;
             }
         }
 
@@ -41,11 +43,23 @@ namespace Einkaufsliste
         {
             item.IsDone = !item.IsDone;
             await Save();
+            CurrentItem = item;
+
         }
 
         private async Task Save()
         {
             await LocalStorage.SetItemAsync("current", List);
+        }
+
+        public async Task DeleteEinkauf()
+        {
+            if (CurrentItem != null)
+            {
+                List.Remove(CurrentItem);
+                await Save();
+                CurrentItem = null;
+            }
         }
     }
 }

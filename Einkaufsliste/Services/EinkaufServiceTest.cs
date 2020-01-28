@@ -8,6 +8,7 @@ namespace Einkaufsliste
     public class EinkaufServiceTest : IEinkaufService
     {
         public List<Einkauf> List { get; set; }
+        public Einkauf CurrentItem { get; set; }
 
         public async Task AddEinkauf(Einkauf item)
         {
@@ -15,7 +16,9 @@ namespace Einkaufsliste
             if (!string.IsNullOrWhiteSpace(item.Name))
             {
                 await Task.Run(() => List.Add(item));
+                CurrentItem = item;
             }
+
         }
 
         public async Task GetList()
@@ -33,6 +36,20 @@ namespace Einkaufsliste
         public async Task ToggleIsDone(Einkauf item)
         {
             await Task.Run(() => item.IsDone = !item.IsDone);
+            CurrentItem = item;
         }
+
+        public async Task DeleteEinkauf()
+        {
+            await Task.Run(() =>
+            {
+                if (CurrentItem != null)
+                {
+                    List.Remove(CurrentItem);
+                    CurrentItem = null;
+                }
+            });
+        }
+
     }
 }

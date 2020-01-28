@@ -6,9 +6,16 @@
 }
 else
 {
+    <div>
+        @if (CurrentItem != null)
+        {
+            <button @onclick="DeleteEinkauf" class="btn btn-info" title="Delete Item @CurrentItem?.Name"><span class="oi oi-minus" /> </button>
+        }
+    </div>
+
     <form @onsubmit="AddEinkauf">
         <input @bind="newEinkauf" placeholder="Was willst du einkaufen ?" />
-        <button type="submit">Add todo</button>
+        <button type="submit" class="btn btn-primary" title="Hinzufügen"><span class="oi oi-plus" /></button>
     </form>
 
     <ul>
