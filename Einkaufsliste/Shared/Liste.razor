@@ -1,7 +1,9 @@
 ﻿@inject IEinkaufService EinkaufService
 
-<input @bind="newEinkauf" placeholder="Was willst du einkaufen ?" />
-<button @onclick="AddEinkauf">Add todo</button>
+    <form @onsubmit="AddEinkauf">
+        <input @bind="newEinkauf" placeholder="Was willst du einkaufen ?" />
+        <button type="submit">Add todo</button>
+    </form>
 
 <ul>
 
