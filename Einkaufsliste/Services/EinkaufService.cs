@@ -18,6 +18,8 @@ namespace Einkaufsliste
         public List<string> ArchivList { get; set; }
         public Einkauf CurrentItem { get; set; }
         public bool IsSortByName { get; set; }
+        public string CurrentArchiveItem { get ; set; }
+        public List<Einkauf> ArchiveListItems { get ; set; }
 
         public EinkaufService(ILocalStorageService localStorage)
         {
@@ -113,6 +115,27 @@ namespace Einkaufsliste
                 List = null;
                 CurrentItem = null;
             }
+        }
+
+        public async Task ShowArchiveListItems(string item)
+        {
+            if (string.Equals(CurrentArchiveItem,item)) {
+                await Task.Run(() =>
+                {
+                    CurrentArchiveItem = "";
+                    ArchiveListItems = null;
+                });
+            }
+            var list = await LocalStorage.GetItemAsync<List<Einkauf>>(item);
+            if (list == null)
+            {
+                list = new List<Einkauf>();
+            }
+            ArchiveListItems = list;
+            CurrentArchiveItem = item;
+
+
+
         }
     }
 }

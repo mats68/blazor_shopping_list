@@ -26,11 +26,11 @@ else
         </div>
     </form>
 
-    <ul>
+    <ul class="list-group">
 
         @foreach (var einkauf in Liste)
         {
-            <li>
+            <li class="list-group-item">
                 <div @onclick="@(() => ToggleIsDone(einkauf))">
                     <span class="@Erledigt(einkauf)">
                         @einkauf.Name

@@ -15,7 +15,20 @@ else
     <ul>
         @foreach (var s in ArchivListe)
         {
-            <li>@s</li>
+            <li @onclick="@(() => ShowArchiveListItems(s))">
+                <p>@s</p>
+
+                @if (s == CurrentArchiveItem && ArchiveListItems != null)
+                {
+                    <ul>
+                        @foreach (var einkauf in ArchiveListItems)
+                        {
+                            <li>@einkauf.Name</li>
+                        }
+                    </ul>
+                }
+
+            </li>
         }
     </ul>
 }

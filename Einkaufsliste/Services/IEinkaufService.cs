@@ -10,6 +10,8 @@ namespace Einkaufsliste
         List<Einkauf> List { get; set; }
         List<string> ArchivList { get; set; }
         Einkauf CurrentItem { get; set; }
+        string CurrentArchiveItem { get; set; }
+        List<Einkauf> ArchiveListItems { get; set; }
         bool IsSortByName { get; set; }
         Task GetList();
         Task AddEinkauf(Einkauf item);
@@ -18,5 +20,6 @@ namespace Einkaufsliste
         void Sort();
         Task GetArchivList();
         Task ArchiveCurrent();
+        Task ShowArchiveListItems(string item);
     }
 }

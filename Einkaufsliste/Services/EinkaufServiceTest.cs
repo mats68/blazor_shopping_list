@@ -11,6 +11,8 @@ namespace Einkaufsliste
         public Einkauf CurrentItem { get; set; }
         public bool IsSortByName { get; set; }
         public List<string> ArchivList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string CurrentArchiveItem { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public List<Einkauf> ArchiveListItems { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public async Task AddEinkauf(Einkauf item)
         {
@@ -74,6 +76,11 @@ namespace Einkaufsliste
         }
 
         public async Task GetArchivList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ShowArchiveListItems(string item)
         {
             throw new NotImplementedException();
         }

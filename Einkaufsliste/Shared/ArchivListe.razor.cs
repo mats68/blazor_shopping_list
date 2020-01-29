@@ -27,6 +27,23 @@ namespace Einkaufsliste.Shared
             }
         }
 
+        public string CurrentArchiveItem
+        {
+            get
+            {
+                return EinkaufSrv.CurrentArchiveItem;
+            }
+        }
+
+        public List<Einkauf> ArchiveListItems
+        {
+            get
+            {
+                return EinkaufSrv.ArchiveListItems;
+            }
+        }
+
+
         protected override async Task OnInitializedAsync()
         {
             await EinkaufSrv.GetArchivList();
@@ -36,6 +53,12 @@ namespace Einkaufsliste.Shared
         {
             await EinkaufSrv.ArchiveCurrent();
             StateHasChanged();
+        }
+
+        public async Task ShowArchiveListItems(string item)
+        {
+            await EinkaufSrv.ShowArchiveListItems(item);
+            //await Task.Run(() => EinkaufSrv.ToggleIsDone(item));
         }
 
     }
