@@ -58,7 +58,6 @@ namespace Einkaufsliste.Shared
         public async Task ShowArchiveListItems(string item)
         {
             await EinkaufSrv.ShowArchiveListItems(item);
-            //await Task.Run(() => EinkaufSrv.ToggleIsDone(item));
         }
 
     }

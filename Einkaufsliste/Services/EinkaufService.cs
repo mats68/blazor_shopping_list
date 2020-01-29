@@ -119,20 +119,22 @@ namespace Einkaufsliste
 
         public async Task ShowArchiveListItems(string item)
         {
-            if (string.Equals(CurrentArchiveItem,item)) {
+            if (item == CurrentArchiveItem) {
                 await Task.Run(() =>
                 {
+                    ArchiveListItems = new List<Einkauf>();
                     CurrentArchiveItem = "";
-                    ArchiveListItems = null;
                 });
-            }
-            var list = await LocalStorage.GetItemAsync<List<Einkauf>>(item);
-            if (list == null)
+            } else
             {
-                list = new List<Einkauf>();
+                var list = await LocalStorage.GetItemAsync<List<Einkauf>>(item);
+                if (list == null)
+                {
+                    list = new List<Einkauf>();
+                }
+                ArchiveListItems = list;
+                CurrentArchiveItem = item;
             }
-            ArchiveListItems = list;
-            CurrentArchiveItem = item;
 
 
 
