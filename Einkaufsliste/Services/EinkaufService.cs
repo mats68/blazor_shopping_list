@@ -9,11 +9,15 @@ namespace Einkaufsliste
 {
     public class EinkaufService : IEinkaufService
     {
+        private const string ArchiveKey = "archive";
+        private const string CurrentKey = "current";
+
         ILocalStorageService LocalStorage { get; set; }
 
         public List<Einkauf> List { get; set; }
+        public List<string> ArchivList { get; set; }
         public Einkauf CurrentItem { get; set; }
-        public bool IsSortByName { get ; set ; }
+        public bool IsSortByName { get; set; }
 
         public EinkaufService(ILocalStorageService localStorage)
         {
@@ -34,7 +38,7 @@ namespace Einkaufsliste
 
         public async Task GetList()
         {
-            var list = await LocalStorage.GetItemAsync<List<Einkauf>>("current");
+            var list = await LocalStorage.GetItemAsync<List<Einkauf>>(CurrentKey);
             if (list == null)
             {
                 list = new List<Einkauf>();
@@ -52,7 +56,7 @@ namespace Einkaufsliste
 
         private async Task Save()
         {
-            await LocalStorage.SetItemAsync("current", List);
+            await LocalStorage.SetItemAsync(CurrentKey, List);
         }
 
         public async Task DeleteEinkauf()
@@ -71,12 +75,44 @@ namespace Einkaufsliste
             if (IsSortByName)
             {
                 List = List.OrderBy(e => e.Name).ToList();
-            } else
+            }
+            else
             {
                 List = List.OrderBy(e => e.Id).ToList();
             }
 
         }
 
+        public async Task GetArchivList()
+        {
+            var list = await LocalStorage.GetItemAsync<List<string>>(ArchiveKey);
+            if (list == null)
+            {
+                list = new List<string>();
+            }
+            ArchivList = list;
+        }
+
+        public async Task ArchiveCurrent()
+        {
+            if (List.Count() > 0)
+            {
+                var nameslist = await LocalStorage.GetItemAsync<List<string>>(ArchiveKey);
+                if (nameslist == null)
+                {
+                    nameslist = new List<string>();
+                }
+
+                var dateStr = DateTime.Now.ToString("G");
+                nameslist.Insert(0,dateStr);
+
+                await LocalStorage.SetItemAsync(ArchiveKey, nameslist);
+                await LocalStorage.SetItemAsync(dateStr, List);
+                await LocalStorage.RemoveItemAsync(CurrentKey);
+                await GetArchivList();
+                List = null;
+                CurrentItem = null;
+            }
+        }
     }
 }

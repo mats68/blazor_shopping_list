@@ -22,6 +22,11 @@ namespace Einkaufsliste.Shared
         }
         public string newEinkauf;
 
+        protected override async Task OnInitializedAsync()
+        {
+            await EinkaufSrv.GetList();
+        }
+
         public Einkauf CurrentItem
         {
             get { return EinkaufSrv.CurrentItem; }
@@ -32,11 +37,6 @@ namespace Einkaufsliste.Shared
             return item.IsDone ? "line-through" : "";
         }
 
-
-        protected override async Task OnInitializedAsync()
-        {
-            await EinkaufSrv.GetList();
-        }
 
         public async Task AddEinkauf()
         {

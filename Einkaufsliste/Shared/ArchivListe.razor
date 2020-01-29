@@ -1,0 +1,21 @@
+﻿@inherits ArchivListeBase
+
+@if (ArchivListe == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @if (CurrentListe?.Count() > 0)
+    {
+        <button @onclick="ArchiveCurrent" class="btn btn-info" title="Aktuelle Liste archivieren"><span class="oi oi-account-login" /> </button>
+    }
+
+    <hr />
+    <ul>
+        @foreach (var s in ArchivListe)
+        {
+            <li>@s</li>
+        }
+    </ul>
+}

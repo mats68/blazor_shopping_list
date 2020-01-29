@@ -10,6 +10,7 @@ namespace Einkaufsliste
         public List<Einkauf> List { get; set; }
         public Einkauf CurrentItem { get; set; }
         public bool IsSortByName { get; set; }
+        public List<string> ArchivList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public async Task AddEinkauf(Einkauf item)
         {
@@ -65,6 +66,16 @@ namespace Einkaufsliste
             {
                 List = List.OrderBy(e => e.Id).ToList();
             }
+        }
+
+        public async Task ArchiveCurrent()
+        {
+            await Task.Run(() => { });
+        }
+
+        public async Task GetArchivList()
+        {
+            throw new NotImplementedException();
         }
     }
 }

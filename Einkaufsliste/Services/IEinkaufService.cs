@@ -8,6 +8,7 @@ namespace Einkaufsliste
     interface IEinkaufService
     {
         List<Einkauf> List { get; set; }
+        List<string> ArchivList { get; set; }
         Einkauf CurrentItem { get; set; }
         bool IsSortByName { get; set; }
         Task GetList();
@@ -15,5 +16,7 @@ namespace Einkaufsliste
         Task ToggleIsDone(Einkauf item);
         Task DeleteEinkauf();
         void Sort();
+        Task GetArchivList();
+        Task ArchiveCurrent();
     }
 }
