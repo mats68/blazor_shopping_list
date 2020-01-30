@@ -67,5 +67,20 @@ namespace Einkaufsliste.Shared
             EinkaufSrv.Sort();
         }
 
+        public string GetFilterClass()
+        {
+            return EinkaufSrv.IsFiltered ? "btn-outline-info" : "btn-info";
+        }
+
+        public string GetFilterTitle()
+        {
+            return EinkaufSrv.IsFiltered ? "Alle anzeigen" : "Erledigte ausblenden";
+        }
+
+        public void Filter()
+        {
+            EinkaufSrv.Filter();
+        }
+
     }
 }
