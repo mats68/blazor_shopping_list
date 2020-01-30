@@ -1,0 +1,38 @@
+﻿@inherits FavoritenBase
+<h3>Favoriten</h3>
+
+@if (FavoritenList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+        <button @onclick="Up" class="btn btn-info" title="Nach oben"><span class="oi oi-arrow-top" /> </button>
+        <button @onclick="Down" class="btn btn-info" title="Nach unten"><span class="oi oi-arrow-bottom" /> </button>
+    </div>
+    <hr />
+
+    <form @onsubmit="AddFavorit">
+        <div class="form-row">
+            <div class="form-group col-md-2 col-6">
+                <input @bind="newFavorit" class="form-control" placeholder="Neuen Favoriten eingeben" />
+            </div>
+            <div class="form-group col-md-1 col-2">
+                <button type="submit" class="btn btn-primary" title="Hinzufügen"><span class="oi oi-plus" /></button>
+            </div>
+        </div>
+    </form>
+
+    <ul class="list-group">
+
+        @foreach (var favorit in FavoritenList)
+        {
+            <li class="@GetActiveClass(favorit)" @onclick="@(() => SetCurrent(favorit))">
+                @favorit.Name
+            </li>
+        }
+    </ul>
+
+
+}

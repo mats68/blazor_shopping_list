@@ -11,6 +11,8 @@ namespace Einkaufsliste
     {
         private const string ArchiveKey = "archive";
         private const string CurrentKey = "current";
+        private const string FavoritenKey = "favoriten";
+
 
         ILocalStorageService LocalStorage { get; set; }
 
@@ -33,13 +35,14 @@ namespace Einkaufsliste
         }
 
 
-
         public List<string> ArchivList { get; set; }
         public Einkauf CurrentItem { get; set; }
+        public Einkauf CurrentFavorit { get; set; }
         public bool IsSortByName { get; set; }
         public bool IsFiltered { get; set; }
         public string CurrentArchiveItem { get; set; }
         public List<Einkauf> ArchiveListItems { get; set; }
+        public List<Einkauf> Favoriten { get; set; }
 
         public EinkaufService(ILocalStorageService localStorage)
         {
@@ -55,6 +58,16 @@ namespace Einkaufsliste
                 list = new List<Einkauf>();
             }
             _List = list;
+        }
+
+        public async Task GetFavoriten()
+        {
+            var list = await LocalStorage.GetItemAsync<List<Einkauf>>(FavoritenKey);
+            if (list == null)
+            {
+                list = new List<Einkauf>();
+            }
+            Favoriten = list;
         }
 
         public async Task AddEinkauf(Einkauf item)
@@ -81,6 +94,11 @@ namespace Einkaufsliste
         private async Task Save()
         {
             await LocalStorage.SetItemAsync(CurrentKey, _List);
+        }
+
+        private async Task SaveFavoriten()
+        {
+            await LocalStorage.SetItemAsync(FavoritenKey, Favoriten);
         }
 
         public async Task DeleteEinkauf()
@@ -168,5 +186,46 @@ namespace Einkaufsliste
 
 
         }
+
+        public async Task AddFavorit(Einkauf item)
+        {
+            if (!string.IsNullOrWhiteSpace(item.Name))
+            {
+                var newId = Favoriten.Count() > 0 ? Favoriten.Max(e => e.Id) + 1 : 1;
+                item.Id = newId;
+                Favoriten.Add(item);
+                await SaveFavoriten();
+                CurrentItem = item;
+            }
+        }
+        public void Up(List<Einkauf> list, Einkauf item)
+        {
+            var index = list.IndexOf(item);
+            if (index > 0)
+            {
+                var id = item.Id;
+                var item2 = list[index - 1];
+                var newId = item2.Id;
+                item.Id = newId;
+                item2.Id = id;
+                Favoriten = Favoriten.OrderBy(e => e.Id).ToList();
+            }
+        }
+
+        public void Down(List<Einkauf> list, Einkauf item)
+        {
+            var index = list.IndexOf(item);
+            if (index < (list.Count() - 1))
+            {
+                var id = item.Id;
+                var item2 = list[index + 1];
+                var newId = item2.Id;
+                item.Id = newId;
+                item2.Id = id;
+                Favoriten = Favoriten.OrderBy(e => e.Id).ToList();
+            }
+
+        }
+
     }
 }
