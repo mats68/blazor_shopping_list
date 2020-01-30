@@ -1,5 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,5 +88,11 @@ namespace Einkaufsliste.Shared
         {
             IsFavoritenMode = !IsFavoritenMode;
         }
+
+        public void CloseFavoriten(MouseEventArgs e)
+        {
+            IsFavoritenMode = false;
+        }
+
     }
 }
