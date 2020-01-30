@@ -1,5 +1,7 @@
 using Einkaufsliste;
+using Einkaufsliste.Tests;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -10,17 +12,23 @@ namespace Einkaufliste.Tests
     {
         public class ListeTest1
         {
-            public EinkaufServiceTest einkaufServiceTest { get; set; }
+            public EinkaufService einkaufServiceTest { get; set; }
 
             public ListeTest1()
             {
                 Init();
             }
 
-            internal async void Init()
+            internal void Init()
             {
-                einkaufServiceTest = new EinkaufServiceTest();
-                await einkaufServiceTest.GetList();
+                LocalStorageServiceFake localStorageServiceFake = new LocalStorageServiceFake();
+                einkaufServiceTest = new EinkaufService(localStorageServiceFake);
+                einkaufServiceTest.List = new List<Einkauf>() {
+                    new Einkauf(){Id = 1, Name = "Radieschen"},
+                    new Einkauf(){Id = 2, Name = "Brot"},
+                    new Einkauf(){Id = 3, Name = "Käse"},
+                };
+
             }
 
             [Fact]
@@ -28,7 +36,7 @@ namespace Einkaufliste.Tests
             {
                 var count = einkaufServiceTest.List.Count();
                 await einkaufServiceTest.AddEinkauf(new Einkauf() { Name = "Banane" });
-                Assert.Equal(count+1, einkaufServiceTest.List.Count());
+                Assert.Equal(count + 1, einkaufServiceTest.List.Count());
                 Assert.Equal("Banane", einkaufServiceTest.CurrentItem.Name);
                 Assert.Equal(4, einkaufServiceTest.List[3].Id);
             }
@@ -59,7 +67,7 @@ namespace Einkaufliste.Tests
                 var item = einkaufServiceTest.List[1];
                 einkaufServiceTest.CurrentItem = item;
                 await einkaufServiceTest.DeleteEinkauf();
-                Assert.Equal(count-1, einkaufServiceTest.List.Count());
+                Assert.Equal(count - 1, einkaufServiceTest.List.Count());
                 Assert.Null(einkaufServiceTest.CurrentItem);
             }
 
