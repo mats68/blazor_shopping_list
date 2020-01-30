@@ -10,6 +10,7 @@ else
     <div>
         <button @onclick="Up" class="btn btn-info" title="Nach oben"><span class="oi oi-arrow-top" /> </button>
         <button @onclick="Down" class="btn btn-info" title="Nach unten"><span class="oi oi-arrow-bottom" /> </button>
+        <button @onclick="ShowDeleteButtons" class="btn btn-danger" title="Einträge löschen"><span class="oi oi-trash" /> </button>
     </div>
     <hr />
 
@@ -28,8 +29,18 @@ else
 
         @foreach (var favorit in FavoritenList)
         {
-            <li class="@GetActiveClass(favorit)" @onclick="@(() => SetCurrent(favorit))">
-                @favorit.Name
+            <li class="col-md-2 col-8 @GetActiveClass(favorit)" @onclick="@(() => SetCurrent(favorit))">
+                <div class="row">
+                    <div class="col-10">
+                        @favorit.Name
+                    </div>
+                    @if (IsDeleteMode)
+                    {
+                        <div class="col-2">
+                            <button @onclick="@(() => Delete(favorit))" class="btn btn-sm btn-danger" title="Löschen"><span class="oi oi-trash" /></button>
+                        </div>
+                    }
+                </div>
             </li>
         }
     </ul>

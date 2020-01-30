@@ -19,6 +19,7 @@ namespace Einkaufsliste.Shared
                 return EinkaufSrv.Favoriten;
             }
         }
+        public bool IsDeleteMode { get; set; }
 
         public string newFavorit;
 
@@ -65,5 +66,16 @@ namespace Einkaufsliste.Shared
         {
             return CurrentItem == fav ? "list-group-item active" : "list-group-item";
         }
+
+        public void ShowDeleteButtons()
+        {
+            IsDeleteMode = !IsDeleteMode;
+        }
+
+        public async Task Delete(Einkauf fav)
+        {
+            await EinkaufSrv.DeleteFavorit(fav);
+        }
+
     }
 }

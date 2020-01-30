@@ -227,5 +227,14 @@ namespace Einkaufsliste
 
         }
 
+        public async Task DeleteFavorit(Einkauf item)
+        {
+            if (item != null)
+            {
+                Favoriten.Remove(item);
+                await SaveFavoriten();
+            }
+        }
+
     }
 }

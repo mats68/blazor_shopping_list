@@ -27,6 +27,7 @@ namespace Einkaufsliste
         Task ShowArchiveListItems(string item);
         Task GetFavoriten();
         Task AddFavorit(Einkauf item);
+        Task DeleteFavorit(Einkauf item);
         void Up(List<Einkauf> list, Einkauf item);
         void Down(List<Einkauf> list, Einkauf item);
     }
