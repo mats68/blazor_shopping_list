@@ -21,6 +21,7 @@ namespace Einkaufsliste.Shared
             }
         }
         public string newEinkauf;
+        public bool IsFavoritenMode { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -82,5 +83,9 @@ namespace Einkaufsliste.Shared
             EinkaufSrv.Filter();
         }
 
+        public void ShowFavoriten()
+        {
+            IsFavoritenMode = !IsFavoritenMode;
+        }
     }
 }

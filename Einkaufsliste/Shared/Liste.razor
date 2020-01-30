@@ -6,26 +6,34 @@
 }
 else
 {
-<div>
-    @if (CurrentItem != null)
+    <div>
+        @if (CurrentItem != null)
+        {
+            <button @onclick="DeleteEinkauf" class="btn btn-info" title="Delete Item @CurrentItem?.Name"><span class="oi oi-minus" /> </button>
+        }
+        <button @onclick="Sort" class="btn @GetSortClass()" title="@GetSortTitle()"><span class="oi oi-sort-ascending" /> </button>
+        <button @onclick="Filter" class="btn @GetFilterClass()" title="@GetFilterTitle()"><span class="oi oi-beaker" /> </button>
+        <button @onclick="ShowFavoriten" class="btn btn-light" title="Favorit einfügen"><span class="oi oi-star" /> </button>
+    </div>
+    <hr />
+    @if (IsFavoritenMode)
     {
-        <button @onclick="DeleteEinkauf" class="btn btn-info" title="Delete Item @CurrentItem?.Name"><span class="oi oi-minus" /> </button>
+        <FavoritenModal />
     }
-    <button @onclick="Sort" class="btn @GetSortClass()" title="@GetSortTitle()"><span class="oi oi-sort-ascending" /> </button>
-    <button @onclick="Filter" class="btn @GetFilterClass()" title="@GetFilterTitle()"><span class="oi oi-beaker" /> </button>
-</div>
-    <hr/>
+    else
+    {
+        <form @onsubmit="AddEinkauf">
+            <div class="form-row">
+                <div class="form-group col-md-2 col-6">
+                    <input @bind="newEinkauf" class="form-control" placeholder="Was willst du einkaufen ?" />
+                </div>
+                <div class="form-group col-md-1 col-2">
+                    <button type="submit" class="btn btn-primary" title="Hinzufügen"><span class="oi oi-plus" /></button>
+                </div>
+            </div>
+        </form>
+    }
 
-    <form @onsubmit="AddEinkauf">
-        <div class="form-row">
-            <div class="form-group col-md-2 col-6">
-                <input @bind="newEinkauf" class="form-control" placeholder="Was willst du einkaufen ?" />
-            </div>
-            <div class="form-group col-md-1 col-2">
-                <button type="submit" class="btn btn-primary" title="Hinzufügen"><span class="oi oi-plus" /></button>
-            </div>
-        </div>
-    </form>
 
     <ul class="list-group">
 
