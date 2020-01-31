@@ -1,6 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace Einkaufsliste.Shared
 
         [Inject]
         IEinkaufService EinkaufSrv { get; set; }
+        [Inject]
+        IJSRuntime JSRuntime { get; set; }
 
         public List<Einkauf> Liste {
             get
@@ -23,6 +26,7 @@ namespace Einkaufsliste.Shared
         }
         public string newEinkauf;
         public bool IsFavoritenMode { get; set; }
+        public ElementReference editNameRef;
 
         protected override async Task OnInitializedAsync()
         {
@@ -44,6 +48,7 @@ namespace Einkaufsliste.Shared
         {
             await Task.Run(() => EinkaufSrv.AddEinkauf(new Einkauf { Name = newEinkauf }));
             newEinkauf = string.Empty;
+            await Focus(editNameRef);
         }
         public async Task ToggleIsDone(Einkauf item)
         {
@@ -92,6 +97,12 @@ namespace Einkaufsliste.Shared
         public void CloseFavoriten(MouseEventArgs e)
         {
             IsFavoritenMode = false;
+        }
+
+        public async Task Focus(ElementReference elementRef)
+        {
+            await JSRuntime.InvokeVoidAsync(
+                "JsFunctions.focusElement", elementRef);
         }
 
     }
