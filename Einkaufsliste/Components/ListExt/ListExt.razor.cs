@@ -108,6 +108,11 @@ namespace Einkaufsliste.Components
             return item.IsDone ? "line-through" : "";
         }
 
+        public string ClassBtnPressed(bool pressed)
+        {
+            return pressed ? "btn-outline-info" : "btn-info";
+        }
+
         public void ItemSelected(ListItem item, object checkedValue)
         {
             var c = (bool)checkedValue;

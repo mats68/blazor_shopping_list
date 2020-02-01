@@ -5,13 +5,17 @@
 
     @if (!HideHeader)
     {
-        <div>
-            <button @onclick="Sort" class="btn btn-info" title="@SortTitle"><span class="oi oi-sort-ascending" /> </button>
-            <button @onclick="Filter" class="btn btn-info" title="@FilterTitle"><span class="oi oi-beaker" /> </button>
-            <button @onclick="Up" class="btn btn-info" title="Nach oben"><span class="oi oi-arrow-top" /> </button>
-            <button @onclick="Down" class="btn btn-info" title="Nach unten"><span class="oi oi-arrow-bottom" /> </button>
-            @HeaderButtons
-            <button @onclick="ToggleDeleteButtons" class="btn btn-info" title="Löschen"><span class="oi oi-trash" /> </button>
+        <div class="row">
+            <div class="col-10">
+                <button @onclick="Sort" class="btn @ClassBtnPressed(ListService.IsSortByName)" title="@SortTitle"><span class="oi oi-sort-ascending" /> </button>
+                <button @onclick="Filter" class="btn @ClassBtnPressed(ListService.IsFiltered)" title="@FilterTitle"><span class="oi oi-beaker" /> </button>
+                <button @onclick="Up" class="btn btn-info" title="Nach oben"><span class="oi oi-arrow-top" /> </button>
+                <button @onclick="Down" class="btn btn-info" title="Nach unten"><span class="oi oi-arrow-bottom" /> </button>
+                @HeaderButtons
+            </div>
+            <div class="col-2">
+                <button @onclick="ToggleDeleteButtons" class="btn @ClassBtnPressed(IsDeleteMode)" title="Löschen"><span class="oi oi-trash" /> </button>
+            </div>
         </div>
         <hr />
         <form @onsubmit="AddItem">
@@ -34,7 +38,7 @@
                     @if (IsMultiSelect)
                     {
                         <div class="form-group col-2">
-                            <input type="checkbox" class="form-control" @onchange="@(eventArgs => { ItemSelected(item, eventArgs.Value); } )"/>
+                            <input type="checkbox" class="form-control" @onchange="@(eventArgs => { ItemSelected(item, eventArgs.Value); } )" />
                         </div>
                     }
 
