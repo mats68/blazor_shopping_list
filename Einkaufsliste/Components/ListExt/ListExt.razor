@@ -31,6 +31,13 @@
         {
             <li class="@ClassActive(item)" @onclick="@(() => SetCurrent(item))" @key="item.Id">
                 <div class="row">
+                    @if (IsMultiSelect)
+                    {
+                        <div class="form-group col-2">
+                            <input type="checkbox" class="form-control" @onchange="@(eventArgs => { ItemSelected(item, eventArgs.Value); } )"/>
+                        </div>
+                    }
+
                     <div class="col-10">
                         <span class="@ClassErledigt(item)">
                             @item.Title

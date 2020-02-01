@@ -28,6 +28,7 @@ namespace Einkaufsliste.Components.ListExt
                 return query.ToList();
             }
         }
+        public List<string> SelectedItems { get; set; }
 
         public bool IsSortByName { get; set; }
         public bool IsFiltered { get; set; }
@@ -39,6 +40,7 @@ namespace Einkaufsliste.Components.ListExt
             LocalStorage = localStorage;
             ListServiceAttrs = listServiceAttrs;
             listitems = new List<ListItem>();
+            SelectedItems = new List<string>();
         }
 
         public async Task Load()
@@ -52,7 +54,8 @@ namespace Einkaufsliste.Components.ListExt
 
         public async Task AddItem(ListItem item)
         {
-            if (!string.IsNullOrWhiteSpace(item.Title))
+            var found = listitems.Find(i => string.Equals(i.Title.ToLower(), item.Title.ToLower()));
+            if (!string.IsNullOrWhiteSpace(item.Title) && found == null)
             {
                 var newId = listitems.Count() > 0 ? listitems.Max(e => e.Id) + 1 : 1;
                 item.Id = newId;

@@ -11,8 +11,10 @@
 
 @if (ShowFavoritenModal)
 {
-    <Modal OnCloseClick="CloseFavoriten">
-        <ListExt ListService="ListServices.ListFavoriten" HideHeader="true">
-        </ListExt>
-    </Modal>
+<Modal OnCloseClick="CloseFavoriten">
+    <button @onclick="InsertFavoriten" class="btn btn-primary" >Ok</button>
+
+    <ListExt ListService="ListServices.ListFavoriten" HideHeader="true" IsMultiSelect="true">
+    </ListExt>
+</Modal>
 }

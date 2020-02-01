@@ -16,6 +16,8 @@ namespace Einkaufsliste.Components
         public RenderFragment HeaderButtons { get; set; }
         [Parameter]
         public bool HideHeader { get; set; }
+        [Parameter]
+        public bool IsMultiSelect { get; set; }
 
 
         [Inject]
@@ -104,6 +106,15 @@ namespace Einkaufsliste.Components
         public string ClassErledigt(ListItem item)
         {
             return item.IsDone ? "line-through" : "";
+        }
+
+        public void ItemSelected(ListItem item, object checkedValue)
+        {
+            var c = (bool)checkedValue;
+
+            if (c && !ListService.SelectedItems.Contains(item.Title)) ListService.SelectedItems.Add(item.Title);
+            if (!c && ListService.SelectedItems.Contains(item.Title)) ListService.SelectedItems.Remove(item.Title);
+            
         }
 
         public async Task Focus(ElementReference elementRef)

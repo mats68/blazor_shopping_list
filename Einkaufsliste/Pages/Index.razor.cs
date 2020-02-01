@@ -32,5 +32,19 @@ namespace Einkaufsliste.Pages
             ShowFavoritenModal = false;
         }
 
+        public async Task InsertFavoriten()
+        {
+
+            foreach (var s in ListServices.ListFavoriten.SelectedItems)
+            {
+                await ListServices.ListEinkauf.AddItem(new ListItem()
+                {
+                    Title = s
+                });
+            }
+            ListServices.ListFavoriten.SelectedItems.Clear();
+            CloseFavoriten();
+
+        }
     }
 }
