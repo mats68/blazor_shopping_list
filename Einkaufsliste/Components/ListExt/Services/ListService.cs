@@ -4,14 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace Einkaufsliste.Components.ListExt
 {
-    public class ListService: IListService
+
+
+    public class ListService 
     {
 
         private List<ListItem> listitems;
 
-        private ILocalStorageService LocalStorage { get; set; }
+        private ILocalStorageService LocalStorage { get; }
+        public ListServiceAttrs ListServiceAttrs { get; }
 
         public List<ListItem> ListItems
         {
@@ -19,27 +23,27 @@ namespace Einkaufsliste.Components.ListExt
             {
                 if (!IsSortByName && !IsFiltered) return listitems;
                 var query = listitems;
-                if (IsSortByName) query.OrderBy(i => i.Title);
-                if (IsFiltered) query.Where(i => !i.IsDone);
+                if (IsSortByName) query = query.OrderBy(i => i.Title).ToList();
+                if (IsFiltered) query = query.Where(i => !i.IsDone).ToList();
                 return query.ToList();
             }
         }
 
-        public string Key { get; set; }
         public bool IsSortByName { get; set; }
         public bool IsFiltered { get; set; }
 
         public ListItem CurrentItem { get; set; }
 
-        public ListService(ILocalStorageService localStorage)
+        public ListService(ILocalStorageService localStorage, ListServiceAttrs listServiceAttrs)
         {
             LocalStorage = localStorage;
+            ListServiceAttrs = listServiceAttrs;
             listitems = new List<ListItem>();
         }
 
         public async Task Load()
         {
-            var l = await LocalStorage.GetItemAsync<List<ListItem>>(Key);
+            var l = await LocalStorage.GetItemAsync<List<ListItem>>(ListServiceAttrs.Key);
             if (l != null)
             {
                 listitems = l;
@@ -76,16 +80,6 @@ namespace Einkaufsliste.Components.ListExt
 
         }
 
-        public void Sort()
-        {
-            IsSortByName = !IsSortByName;
-        }
-
-        public void Filter()
-        {
-            IsFiltered = !IsFiltered;
-        }
-
         public void Up(ListItem item)
         {
             var index = listitems.IndexOf(item);
@@ -119,7 +113,7 @@ namespace Einkaufsliste.Components.ListExt
 
         private async Task Save()
         {
-            await LocalStorage.SetItemAsync(Key, listitems);
+            await LocalStorage.SetItemAsync(ListServiceAttrs.Key, listitems);
         }
 
 
