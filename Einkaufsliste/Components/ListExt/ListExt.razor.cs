@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Einkaufsliste.Components
 {
-    public class ListExtBase: ComponentBase
+    public class ListExtBase : ComponentBase
     {
         [Parameter]
         public ListService ListService { get; set; }
@@ -30,11 +30,39 @@ namespace Einkaufsliste.Components
         public string newItem;
         public ElementReference editNameRef;
 
+        public bool IsDeleteMode { get; set; }
+
         public async Task AddItem()
         {
             await ListService.AddItem(new ListItem() { Title = newItem });
             newItem = string.Empty;
             await Focus(editNameRef);
+        }
+
+        public async Task Delete(ListItem item)
+        {
+            await ListService.DeleteItem(item);
+        }
+
+        public void Up()
+        {
+            if (ListService.CurrentItem != null)
+            {
+                ListService.Up(ListService.CurrentItem);
+            }
+        }
+
+        public void Down()
+        {
+            if (ListService.CurrentItem != null)
+            {
+                ListService.Down(ListService.CurrentItem);
+            }
+        }
+
+        public void SetCurrent(ListItem item)
+        {
+            ListService.CurrentItem = item;
         }
 
         public string SortTitle
@@ -54,6 +82,26 @@ namespace Einkaufsliste.Components
         public void Filter()
         {
             ListService.IsFiltered = !ListService.IsFiltered;
+        }
+
+        public async Task ToggleIsDone(ListItem item)
+        {
+            await ListService.ToggleIsDone(item);
+        }
+
+        public void ToggleDeleteButtons()
+        {
+            IsDeleteMode = !IsDeleteMode;
+        }
+
+        public string ClassActive(ListItem item)
+        {
+            return ListService.CurrentItem == item ? "list-group-item active" : "list-group-item";
+        }
+
+        public string ClassErledigt(ListItem item)
+        {
+            return item.IsDone ? "line-through" : "";
         }
 
         public async Task Focus(ElementReference elementRef)

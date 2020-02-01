@@ -16,7 +16,8 @@ namespace Einkaufsliste.Services
             new ListServiceAttrs()
             {
                 Key = "cur",
-                NewItemText = "Was willst du einkaufen ?"
+                NewItemText = "Was willst du einkaufen ?",
+                ShowIsDoneButton = true,
             });
 
             ListFavoriten = new ListService(LocalStorage,

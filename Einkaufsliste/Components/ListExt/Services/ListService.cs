@@ -9,7 +9,7 @@ namespace Einkaufsliste.Components.ListExt
 {
 
 
-    public class ListService 
+    public class ListService
     {
 
         private List<ListItem> listitems;
@@ -62,22 +62,16 @@ namespace Einkaufsliste.Components.ListExt
             }
         }
 
-        public async Task DeleteItem()
+        public async Task DeleteItem(ListItem item)
         {
-            if (CurrentItem != null)
-            {
-                listitems.Remove(CurrentItem);
-                await Save();
-                CurrentItem = null;
-            }
+            listitems.Remove(item);
+            await Save();
         }
 
         public async Task ToggleIsDone(ListItem item)
         {
             item.IsDone = !item.IsDone;
             await Save();
-            CurrentItem = item;
-
         }
 
         public void Up(ListItem item)

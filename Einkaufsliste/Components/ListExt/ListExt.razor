@@ -6,7 +6,11 @@
     <div>
         <button @onclick="Sort" class="btn btn-info" title="@SortTitle"><span class="oi oi-sort-ascending" /> </button>
         <button @onclick="Filter" class="btn btn-info" title="@FilterTitle"><span class="oi oi-beaker" /> </button>
+        <button @onclick="Up" class="btn btn-info" title="Nach oben"><span class="oi oi-arrow-top" /> </button>
+        <button @onclick="Down" class="btn btn-info" title="Nach unten"><span class="oi oi-arrow-bottom" /> </button>
         @HeaderButtons
+        <button @onclick="ToggleDeleteButtons" class="btn btn-info" title="Löschen"><span class="oi oi-trash" /> </button>
+
     </div>
     <hr />
     <form @onsubmit="AddItem">
@@ -23,8 +27,27 @@
     <ul class="list-group">
         @foreach (var item in Liste)
         {
-            <li class="list-group-item" @key="item.Id">
-                @item.Title
+            <li class="col-md-2 col-8 @ClassActive(item)" @onclick="@(() => SetCurrent(item))" @key="item.Id">
+                <div class="row">
+                    <div class="col-10">
+                        <span class="@ClassErledigt(item)">
+                            @item.Title
+                        </span>
+
+                    </div>
+                    @if (IsDeleteMode)
+                    {
+                        <div class="col-2">
+                            <button @onclick="@(() => Delete(item))" class="btn btn-sm btn-danger" title="Löschen"><span class="oi oi-trash" /></button>
+                        </div>
+                    }
+                    else if (ListService.ListServiceAttrs.ShowIsDoneButton)
+                    {
+                        <div class="col-2">
+                            <button @onclick="@(() => ToggleIsDone(item))" class="btn btn-sm btn-info" title="Erledigt"><span class="oi oi-check" /></button>
+                        </div>
+                    }
+                </div>
             </li>
         }
     </ul>
