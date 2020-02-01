@@ -12,6 +12,8 @@ namespace Einkaufsliste.Pages
     {
         [Inject]
         public ListServices ListServices { get; set; }
+        public bool ShowFavoritenModal { get; set; }
+
         public ListService ListEinkauf
         {
             get
@@ -22,7 +24,13 @@ namespace Einkaufsliste.Pages
 
         public void ShowFavoriten()
         {
-            Console.WriteLine("ShowFavoriten");
+            ShowFavoritenModal = true;
         }
+
+        public void CloseFavoriten()
+        {
+            ShowFavoritenModal = false;
+        }
+
     }
 }

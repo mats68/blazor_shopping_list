@@ -1,0 +1,20 @@
+﻿@inherits ModalBase
+
+<div class="modal" tabindex="-1" style="display:block" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Favoriten einfügen</h3>
+                <button type="button" class="close"
+                        @onclick="OnCloseClick">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <br />
+                @ChildContent
+            </div>
+        </div>
+    </div>
+</div>
+

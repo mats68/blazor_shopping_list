@@ -14,6 +14,8 @@ namespace Einkaufsliste.Components
         public ListService ListService { get; set; }
         [Parameter]
         public RenderFragment HeaderButtons { get; set; }
+        [Parameter]
+        public bool HideHeader { get; set; }
 
 
         [Inject]
