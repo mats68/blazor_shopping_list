@@ -1,10 +1,8 @@
 ﻿@page "/"
-@inject ListServices ListServices
+@inherits IndexBase
 
-    <ListExt ListService="ListServices.ListEinkauf">
-        <HeaderButtons>
-            <button class="btn btn-info" title="Favoriten"><span class="oi oi-star" /> </button>
-        </HeaderButtons>
-
-    </ListExt>
-    
+<ListExt ListService="ListEinkauf">
+    <HeaderButtons>
+        <button @onclick="ShowFavoriten" class="btn btn-info" title="Favoriten"><span class="oi oi-star" /> </button>
+    </HeaderButtons>
+</ListExt>
