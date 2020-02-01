@@ -1,0 +1,14 @@
+﻿@inherits ListExtBase
+
+<h3>ListExt</h3>
+
+<ul class="list-group">
+
+    @foreach (var item in ListService.ListItems)
+    {
+        <li class="list-group-item">
+            @item.Title
+        </li>
+    }
+</ul>
+}

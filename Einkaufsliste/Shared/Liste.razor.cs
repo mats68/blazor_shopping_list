@@ -94,7 +94,7 @@ namespace Einkaufsliste.Shared
             IsFavoritenMode = !IsFavoritenMode;
         }
 
-        public void CloseFavoriten(MouseEventArgs e)
+        public void CloseFavoriten()
         {
             IsFavoritenMode = false;
         }
