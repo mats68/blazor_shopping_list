@@ -18,6 +18,8 @@ namespace Einkaufsliste.Components
         public bool HideHeader { get; set; }
         [Parameter]
         public bool IsMultiSelect { get; set; }
+        [Parameter]
+        public bool IsBoldText { get; set; }
 
 
         [Inject]
@@ -103,9 +105,11 @@ namespace Einkaufsliste.Components
             return ListService.CurrentItem == item ? "list-group-item active" : "list-group-item";
         }
 
-        public string ClassErledigt(ListItem item)
+        public string ClassText(ListItem item)
         {
-            return item.IsDone ? "line-through" : "";
+            var s = IsBoldText ? "font-weight-bold" : "font-weight-normal";
+            var s1 = item.IsDone ? " line-through" : "";
+            return s + s1;
         }
 
         public string ClassBtnPressed(bool pressed)
