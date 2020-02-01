@@ -6,6 +6,7 @@
     <div>
         <button @onclick="Sort" class="btn btn-info" title="@SortTitle"><span class="oi oi-sort-ascending" /> </button>
         <button @onclick="Filter" class="btn btn-info" title="@FilterTitle"><span class="oi oi-beaker" /> </button>
+        @HeaderButtons
     </div>
     <hr />
     <form @onsubmit="AddItem">

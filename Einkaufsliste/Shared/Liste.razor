@@ -6,15 +6,15 @@
 }
 else
 {
-    <div>
-        @if (CurrentItem != null)
-        {
-            <button @onclick="DeleteEinkauf" class="btn btn-info" title="Delete Item @CurrentItem?.Name"><span class="oi oi-minus" /> </button>
-        }
-        <button @onclick="Sort" class="btn @GetSortClass()" title="@GetSortTitle()"><span class="oi oi-sort-ascending" /> </button>
-        <button @onclick="Filter" class="btn @GetFilterClass()" title="@GetFilterTitle()"><span class="oi oi-beaker" /> </button>
-        <button @onclick="ShowFavoriten" class="btn btn-light" title="Favorit einfügen"><span class="oi oi-star" /> </button>
-    </div>
+<div>
+    @if (CurrentItem != null)
+    {
+        <button @onclick="DeleteEinkauf" class="btn btn-info" title="Delete Item @CurrentItem?.Name"><span class="oi oi-minus" /> </button>
+    }
+    <button @onclick="Sort" class="btn @GetSortClass()" title="@GetSortTitle()"><span class="oi oi-sort-ascending" /> </button>
+    <button @onclick="Filter" class="btn @GetFilterClass()" title="@GetFilterTitle()"><span class="oi oi-beaker" /> </button>
+    <button @onclick="ShowFavoriten" class="btn btn-light" title="Favorit einfügen"><span class="oi oi-star" /> </button>
+</div>
     <hr />
     @if (IsFavoritenMode)
     {

@@ -12,6 +12,9 @@ namespace Einkaufsliste.Components
     {
         [Parameter]
         public ListService ListService { get; set; }
+        [Parameter]
+        public RenderFragment HeaderButtons { get; set; }
+
 
         [Inject]
         IJSRuntime JSRuntime { get; set; }
