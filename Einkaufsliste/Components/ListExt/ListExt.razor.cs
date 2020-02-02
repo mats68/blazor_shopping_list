@@ -102,7 +102,7 @@ namespace Einkaufsliste.Components
 
         public string ClassActive(ListItem item)
         {
-            return ListService.CurrentItem == item ? "list-group-item active" : "list-group-item";
+            return ListService.CurrentItem == item ? "list-group-item list-group-item-action active" : "list-group-item list-group-item-action";
         }
 
         public string ClassText(ListItem item)
