@@ -1,7 +1,7 @@
 ﻿@inherits ModalBase
 
 <div class="modal" tabindex="-1" style="display:block" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="overflow-y:initial">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">Favoriten einfügen</h3>
@@ -10,7 +10,7 @@
                     <span aria-hidden="true">X</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="height: 500px;overflow-y: auto;">
                 @ChildContent
             </div>
         </div>
