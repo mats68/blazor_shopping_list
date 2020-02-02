@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Einkaufsliste.Pages
 {
-    public class IndexBase : ComponentBase
+    public class IndexBase : ComponentBase, IDisposable
     {
         [Inject]
         public ListServices ListServices { get; set; }
@@ -52,6 +52,18 @@ namespace Einkaufsliste.Pages
             ListServices.ListFavoriten.SelectedItems.Clear();
             CloseFavoriten();
 
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            await ListServices.LoadSettings();
+            ListServices.ListEinkauf.IsFiltered = ListServices.Settings.IsFiltered;
+            ListServices.ListEinkauf.IsSortByName = ListServices.Settings.IsSortByName;
+        }
+
+        public void Dispose()
+        {
+            Task.Run(() => ListServices.SaveSettings());
         }
     }
 }
