@@ -13,7 +13,7 @@ namespace Einkaufsliste.Services
         public List<string> ArchivList { get; set; }
         public string Key { get; set; } = "archive";
         private bool loaded = false;
-        private readonly int MaxEntries = 3;
+        private readonly int MaxEntries = 20;
 
         public ArchivService(ILocalStorageService localStorage)
         {

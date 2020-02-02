@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.LocalStorage;
+using Einkaufsliste.Components.ListExt;
+using Einkaufsliste.Services;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,59 +9,40 @@ using System.Threading.Tasks;
 
 namespace Einkaufsliste.Shared
 {
-    public class ArchivListeBase: ComponentBase
+    public class ArchivListeBase : ComponentBase
     {
         [Inject]
-        IEinkaufService EinkaufSrv { get; set; }
+        public ArchivService ArchivService { get; set; }
+        [Inject]
+        ILocalStorageService LocalStorage { get; set; }
 
-        public List<string> ArchivListe
-        {
-            get
-            {
-                return EinkaufSrv.ArchivList;
-            }
-        }
-
-        public List<Einkauf> CurrentListe
-        {
-            get
-            {
-                return EinkaufSrv.List;
-            }
-        }
-
-        public string CurrentArchiveItem
-        {
-            get
-            {
-                return EinkaufSrv.CurrentArchiveItem;
-            }
-        }
-
-        public List<Einkauf> ArchiveListItems
-        {
-            get
-            {
-                return EinkaufSrv.ArchiveListItems;
-            }
-        }
+        public string Current { get; set; }
+        public ListService CurrentList { get; set; }
 
 
         protected override async Task OnInitializedAsync()
         {
-            await EinkaufSrv.GetArchivList();
+            await ArchivService.Load();
         }
 
-        public async Task ArchiveCurrent()
+
+        public void SetCurrent(string item)
         {
-            await EinkaufSrv.ArchiveCurrent();
-            StateHasChanged();
-        }
+            if (Current == item)
+            {
+                Current = null;
+                CurrentList = null;
+            }
+            else
+            {
+                Current = item;
+                CurrentList = new ListService(LocalStorage, new ListServiceAttrs()
+                {
+                    Key = Current,
+                    ShowIsDoneButton = false
+                });
+            }
 
-        public async Task ShowArchiveListItems(string item)
-        {
-            await EinkaufSrv.ShowArchiveListItems(item);
         }
-
     }
 }

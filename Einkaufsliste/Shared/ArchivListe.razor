@@ -1,33 +1,25 @@
 ﻿@inherits ArchivListeBase
 
-@if (ArchivListe == null)
+@if (ArchivService == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    @if (CurrentListe?.Count() > 0)
-    {
-        <button @onclick="ArchiveCurrent" class="btn btn-info" title="Aktuelle Liste archivieren"><span class="oi oi-account-login" /> </button>
-    }
-
+    <h3>Archiv</h3>
     <hr />
-    <ul>
-        @foreach (var s in ArchivListe)
+    <ul class="list-group-flush">
+        @foreach (var s in ArchivService.ArchivList)
         {
-            <li @onclick="@(() => ShowArchiveListItems(s))">
-                <p>@s</p>
-
-                @if (s == CurrentArchiveItem && ArchiveListItems != null)
+            <li class="list-group-item" @onclick="@(() => SetCurrent(s))">
+                @s
+                @if (Current == s)
                 {
-                    <ul>
-                        @foreach (var einkauf in ArchiveListItems)
-                        {
-                            <li>@einkauf.Name</li>
-                        }
-                    </ul>
-                }
+                    <ListExt ListService="CurrentList"
+                             HideHeader="true">
+                    </ListExt>
 
+                }
             </li>
         }
     </ul>
