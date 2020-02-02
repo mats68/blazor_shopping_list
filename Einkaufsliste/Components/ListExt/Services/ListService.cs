@@ -35,6 +35,15 @@ namespace Einkaufsliste.Components.ListExt
 
         public ListItem CurrentItem { get; set; }
 
+        public bool AllItemsDone
+        {
+            get
+            {
+                if (listitems.Count() == 0) return false;
+                return listitems.Where(i => !i.IsDone).Count() == 0;
+            }
+        }
+
         public ListService(ILocalStorageService localStorage, ListServiceAttrs listServiceAttrs)
         {
             LocalStorage = localStorage;
@@ -106,7 +115,12 @@ namespace Einkaufsliste.Components.ListExt
 
         }
 
-
+        public async Task ClearList()
+        {
+            listitems.Clear();
+            await LocalStorage.RemoveItemAsync(ListServiceAttrs.Key);
+            CurrentItem = null;
+        }
 
         private async Task Save()
         {

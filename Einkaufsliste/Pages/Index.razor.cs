@@ -27,9 +27,10 @@ namespace Einkaufsliste.Pages
             ShowFavoritenModal = true;
         }
 
-        public void Archive()
+        public async Task Archive()
         {
-            Console.WriteLine(ListServices.ArchivService.Key);
+            await ListServices.ArchivService.Archivieren(ListServices.ListEinkauf.ListItems);
+            await ListServices.ListEinkauf.ClearList();
         }
         
 

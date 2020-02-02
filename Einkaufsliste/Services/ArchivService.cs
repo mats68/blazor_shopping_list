@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using Einkaufsliste.Components.ListExt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Einkaufsliste.Services
         ILocalStorageService LocalStorage { get; set; }
         public List<string> ArchivList { get; set; }
         public string Key { get; set; } = "archive";
+        private bool loaded = false;
+        private readonly int MaxEntries = 3;
 
         public ArchivService(ILocalStorageService localStorage)
         {
@@ -25,8 +28,26 @@ namespace Einkaufsliste.Services
             {
                 ArchivList = list;
             }
+            loaded = true;
         }
 
+        public async Task Archivieren(List<ListItem> list)
+        {
+            if (!loaded) await Load();
+            if (ArchivList.Count() >= MaxEntries)
+            {
+                var ind = MaxEntries - 1;
+                for (int i = ind; i >= ind; i--)
+                {
+                    await LocalStorage.RemoveItemAsync(ArchivList[i]);
+                    ArchivList.RemoveAt(i);
+                }
+            }
+            var dateStr = DateTime.Now.ToString("G");
+            ArchivList.Insert(0, dateStr);
+            await LocalStorage.SetItemAsync(Key, ArchivList);
+            await LocalStorage.SetItemAsync(dateStr, list);
+        }
 
 
     }
