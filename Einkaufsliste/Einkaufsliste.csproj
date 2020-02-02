@@ -6,9 +6,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <ServiceWorkerCacheVersion>1</ServiceWorkerCacheVersion>
+    <ServiceWorkerCacheVersion>3</ServiceWorkerCacheVersion>
     <ServiceWorkerForce>true</ServiceWorkerForce>
 
+    <ServiceWorkerRegisterInstallableType>installable-blazor</ServiceWorkerRegisterInstallableType>
+    
     <ManifestShortName>Einkaufsliste</ManifestShortName>
     <ManifestLongName>Einkaufliste</ManifestLongName>
   </PropertyGroup>

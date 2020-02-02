@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
 
 <div class="sidebar">
     <NavMenu />
@@ -8,4 +9,40 @@
     <div class="content px-4">
         @Body
     </div>
+
+    @if (Installable)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5>App Installieren?</h5>
+                <br />
+                <button class="btn btn-primary" @onclick="@(() => InstallClicked())">Ja</button>
+                <button class="btn btn-danger" @onclick="@(()=>Installable=false)">Nein</button>
+            </div>
+        </div>
+    }
 </div>
+
+
+@code
+{
+    // see https://wellsb.com/csharp/aspnet/create-pwa-from-blazor-app/
+    static bool Installable = false;
+    static Action OnInstallable;
+    protected override void OnInitialized()
+    {
+        OnInstallable = () => InvokeAsync(StateHasChanged);
+    }
+    [JSInvokable]
+    public static Task PWAInstallable()
+    {
+        Installable = true;
+        OnInstallable.Invoke();
+        return Task.CompletedTask;
+    }
+    ValueTask InstallClicked()
+    {
+        Installable = false;
+        return JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
+    }
+}

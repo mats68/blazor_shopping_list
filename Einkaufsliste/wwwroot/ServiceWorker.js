@@ -5,7 +5,7 @@ const swInstallEvent = 'install';
 const swInstalledEvent = 'installed';
 const swActivateEvent = 'activate';
 const staticCachePrefix = 'blazor-cache-v';
-const staticCacheName = 'blazor-cache-v1';
+const staticCacheName = 'blazor-cache-v3';
 const requiredFiles = [
 "/_framework/blazor.boot.json",
 "/_framework/blazor.webassembly.js",
@@ -13,6 +13,7 @@ const requiredFiles = [
 "/_framework/wasm/mono.wasm",
 "/_framework/_bin/Blazored.LocalStorage.dll",
 "/_framework/_bin/Einkaufsliste.dll",
+"/_framework/_bin/Einkaufsliste.pdb",
 "/_framework/_bin/Microsoft.AspNetCore.Authorization.dll",
 "/_framework/_bin/Microsoft.AspNetCore.Blazor.dll",
 "/_framework/_bin/Microsoft.AspNetCore.Blazor.HttpClient.dll",
