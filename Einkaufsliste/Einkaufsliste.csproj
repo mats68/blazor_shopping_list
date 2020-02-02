@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <ServiceWorkerCacheVersion>5</ServiceWorkerCacheVersion>
+    <ServiceWorkerCacheVersion>7</ServiceWorkerCacheVersion>
     <ServiceWorkerForce>true</ServiceWorkerForce>
 
     <ServiceWorkerRegisterInstallableType>installable-blazor</ServiceWorkerRegisterInstallableType>

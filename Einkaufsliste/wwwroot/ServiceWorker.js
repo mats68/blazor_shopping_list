@@ -5,7 +5,7 @@ const swInstallEvent = 'install';
 const swInstalledEvent = 'installed';
 const swActivateEvent = 'activate';
 const staticCachePrefix = 'blazor-cache-v';
-const staticCacheName = 'blazor-cache-v5';
+const staticCacheName = 'blazor-cache-v7';
 const requiredFiles = [
 "/_framework/blazor.boot.json",
 "/_framework/blazor.webassembly.js",
@@ -53,8 +53,8 @@ const requiredFiles = [
 "/css/site.css",
 "/default-icon-192x192.png",
 "/default-icon-512x512.png",
+"/favicon.ico",
 "/index.html",
-"/_redirects",
 "/ServiceWorkerRegister.js",
 "/manifest.json"
 ];
