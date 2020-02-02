@@ -12,6 +12,7 @@ namespace Einkaufsliste
         {
             services.AddBlazoredLocalStorage();
             services.AddSingleton<IEinkaufService, EinkaufService>();
+            services.AddSingleton<ArchivService>();
             services.AddSingleton<ListServices>();
 
         }

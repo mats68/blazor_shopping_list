@@ -27,6 +27,12 @@ namespace Einkaufsliste.Pages
             ShowFavoritenModal = true;
         }
 
+        public void Archive()
+        {
+            Console.WriteLine(ListServices.ArchivService.Key);
+        }
+        
+
         public void CloseFavoriten()
         {
             ShowFavoritenModal = false;

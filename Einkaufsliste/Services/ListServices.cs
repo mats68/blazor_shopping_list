@@ -9,9 +9,11 @@ namespace Einkaufsliste.Services
 {
     public class ListServices
     {
-        public ListServices(ILocalStorageService localStorage)
+
+        public ListServices(ILocalStorageService localStorage, ArchivService archivService)
         {
             LocalStorage = localStorage;
+            ArchivService = archivService;
             ListEinkauf = new ListService(LocalStorage, 
             new ListServiceAttrs()
             {
@@ -29,6 +31,7 @@ namespace Einkaufsliste.Services
         }
 
         ILocalStorageService LocalStorage { get; set; }
+        public ArchivService ArchivService { get; }
         public ListService ListEinkauf { get; set; }
         public ListService ListFavoriten { get; set; }
     }
