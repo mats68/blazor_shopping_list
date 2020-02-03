@@ -50,19 +50,19 @@ namespace Einkaufsliste.Components
             await ListService.DeleteItem(item);
         }
 
-        public void Up()
+        public async Task Up()
         {
             if (ListService.CurrentItem != null)
             {
-                ListService.Up(ListService.CurrentItem);
+                await ListService.Up(ListService.CurrentItem);
             }
         }
 
-        public void Down()
+        public async Task Down()
         {
             if (ListService.CurrentItem != null)
             {
-                ListService.Down(ListService.CurrentItem);
+                await ListService.Down(ListService.CurrentItem);
             }
         }
 

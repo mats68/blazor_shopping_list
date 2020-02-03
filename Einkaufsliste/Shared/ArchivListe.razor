@@ -8,7 +8,7 @@ else
 {
     <h3>Archiv</h3>
     <hr />
-    <ul class="list-group-flush">
+    <ul class="list-group">
         @foreach (var s in ArchivService.ArchivList)
         {
             <li class="list-group-item" @onclick="@(() => SetCurrent(s))">

@@ -86,7 +86,7 @@ namespace Einkaufsliste.Components.ListExt
             await Save();
         }
 
-        public void Up(ListItem item)
+        public async Task Up(ListItem item)
         {
             var index = listitems.IndexOf(item);
             if (index > 0)
@@ -97,10 +97,11 @@ namespace Einkaufsliste.Components.ListExt
                 item.Id = newId;
                 item2.Id = id;
                 listitems = listitems.OrderBy(e => e.Id).ToList();
+                await Save();
             }
         }
 
-        public void Down(ListItem item)
+        public async Task Down(ListItem item)
         {
             var index = listitems.IndexOf(item);
             if (index < (listitems.Count() - 1))
@@ -111,6 +112,7 @@ namespace Einkaufsliste.Components.ListExt
                 item.Id = newId;
                 item2.Id = id;
                 listitems = listitems.OrderBy(e => e.Id).ToList();
+                await Save();
             }
 
         }
