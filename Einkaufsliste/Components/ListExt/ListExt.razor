@@ -3,70 +3,72 @@
 @if (ListExtViewModel?.ListItems != null)
 {
 
-    @if (!HideHeader)
+@if (!HideHeader)
     {
-        <div class="row">
-            <div class="col-10">
-                <button @onclick="Sort" class="btn @ClassBtnPressed(ListExtViewModel.IsSortByName)" title="@SortTitle"><span class="oi oi-sort-ascending" /> </button>
-                <button @onclick="Filter" class="btn @ClassBtnPressed(ListExtViewModel.IsFiltered)" title="@FilterTitle"><span class="oi oi-beaker" /> </button>
-                <button @onclick="Up" class="btn btn-info" title="Nach oben"><span class="oi oi-arrow-top" /> </button>
-                <button @onclick="Down" class="btn btn-info" title="Nach unten"><span class="oi oi-arrow-bottom" /> </button>
-                @HeaderButtons
-            </div>
-            <div class="col-2">
-                <button @onclick="ToggleDeleteButtons" class="btn @ClassBtnPressed(IsDeleteMode)" title="Löschen"><span class="oi oi-trash" /> </button>
-            </div>
+<div class="row">
+    <div class="col-10">
+        <button @onclick="Sort" class="btn @ClassBtnPressed(ListExtViewModel.IsSortByName)" title="@SortTitle"><span class="oi oi-sort-ascending" /> </button>
+        <button @onclick="Filter" class="btn @ClassBtnPressed(ListExtViewModel.IsFiltered)" title="@FilterTitle"><span class="oi oi-beaker" /> </button>
+        @if (!ListExtViewModel.IsSortByName) {
+        <button @onclick="Up" class="btn btn-info" title="Nach oben"><span class="oi oi-arrow-top" /> </button>
+        <button @onclick="Down" class="btn btn-info" title="Nach unten"><span class="oi oi-arrow-bottom" /> </button>
+         }
+        @HeaderButtons
+    </div>
+    <div class="col-2">
+        <button @onclick="ToggleDeleteButtons" class="btn @ClassBtnPressed(IsDeleteMode)" title="Löschen"><span class="oi oi-trash" /> </button>
+    </div>
+</div>
+<hr />
+<form @onsubmit="AddItem">
+    <div class="row">
+        <div class="form-group col-10">
+            <input @ref="editNameRef" @bind="newItem" class="form-control" placeholder="@NewItemText" />
         </div>
-        <hr />
-        <form @onsubmit="AddItem">
-            <div class="row">
-                <div class="form-group col-10">
-                    <input @ref="editNameRef" @bind="newItem" class="form-control" placeholder="@NewItemText" />
-                </div>
-                <div class="form-group col-2">
-                    <button type="submit" class="btn btn-primary" title="Hinzufügen"><span class="oi oi-plus" /></button>
-                </div>
-            </div>
-        </form>
+        <div class="form-group col-2">
+            <button type="submit" class="btn btn-primary" title="Hinzufügen"><span class="oi oi-plus" /></button>
+        </div>
+    </div>
+</form>
     }
 
-    <ul class="list-group">
-        @foreach (var item in Liste)
+<ul class="list-group">
+    @foreach (var item in Liste)
         {
-            <li class="@ClassActive(item)" @onclick="@(() => SetCurrent(item))" @key="item.Id">
-                <div class="row">
-                    @if (IsMultiSelect)
+    <li class="@ClassActive(item)" @onclick="@(() => SetCurrent(item))" @key="item.Id">
+        <div class="row">
+            @if (IsMultiSelect)
                     {
-                        <div class="form-group col-2">
-                            <input type="checkbox" class="form-control" @onchange="@(eventArgs => { ItemSelected(item, eventArgs.Value); } )" />
-                        </div>
+            <div class="form-group col-2">
+                <input type="checkbox" class="form-control" @onchange="@(eventArgs => { ItemSelected(item, eventArgs.Value); } )" />
+            </div>
                     }
 
-                    <div class="col-10">
-                        <span class="@ClassText(item)" >
-                            @item.Title
-                        </span>
+            <div class="col-10">
+                <span class="@ClassText(item)">
+                    @item.Title
+                </span>
 
-                    </div>
-                    @if (IsDeleteMode)
+            </div>
+            @if (IsDeleteMode)
                     {
-                        <div class="col-2">
-                            <button @onclick="@(() => Delete(item))" class="btn btn-sm btn-danger" title="Löschen"><span class="oi oi-trash" /></button>
-                        </div>
+            <div class="col-2">
+                <button @onclick="@(() => Delete(item))" class="btn btn-sm btn-danger" title="Löschen"><span class="oi oi-trash" /></button>
+            </div>
                     }
                     else if (ShowIsDoneButton)
                     {
-                        <div class="col-2">
-                            <button @onclick="@(() => ToggleIsDone(item))" class="btn btn-sm btn-info" title="Erledigt"><span class="oi oi-check" /></button>
-                        </div>
+            <div class="col-2">
+                <button @onclick="@(() => ToggleIsDone(item))" class="btn btn-sm btn-info" title="Erledigt"><span class="oi oi-check" /></button>
+            </div>
                     }
-                </div>
-            </li>
+        </div>
+    </li>
         }
-    </ul>
+</ul>
 }
 else
 {
-    <p><em>Loading...</em></p>
+<p><em>Loading...</em></p>
 }
 
