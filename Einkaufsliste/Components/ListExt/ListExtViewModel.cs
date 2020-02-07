@@ -5,17 +5,23 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace Einkaufsliste.Components.ListExt
+namespace Einkaufsliste.Components
 {
+    public class ListItem
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public bool IsDone { get; set; }
+    }
 
 
-    public class ListService
+    public class ListExtViewModel
     {
 
         private List<ListItem> listitems;
+        private readonly string key;
 
         private ILocalStorageService LocalStorage { get; }
-        public ListServiceAttrs ListServiceAttrs { get; }
 
         public List<ListItem> ListItems
         {
@@ -44,17 +50,17 @@ namespace Einkaufsliste.Components.ListExt
             }
         }
 
-        public ListService(ILocalStorageService localStorage, ListServiceAttrs listServiceAttrs)
+        public ListExtViewModel(ILocalStorageService localStorage, string key)
         {
             LocalStorage = localStorage;
-            ListServiceAttrs = listServiceAttrs;
+            this.key = key;
             listitems = new List<ListItem>();
             SelectedItems = new List<string>();
         }
 
         public async Task Load()
         {
-            var l = await LocalStorage.GetItemAsync<List<ListItem>>(ListServiceAttrs.Key);
+            var l = await LocalStorage.GetItemAsync<List<ListItem>>(key);
             if (l != null)
             {
                 listitems = l;
@@ -120,13 +126,13 @@ namespace Einkaufsliste.Components.ListExt
         public async Task ClearList()
         {
             listitems.Clear();
-            await LocalStorage.RemoveItemAsync(ListServiceAttrs.Key);
+            await LocalStorage.RemoveItemAsync(key);
             CurrentItem = null;
         }
 
         private async Task Save()
         {
-            await LocalStorage.SetItemAsync(ListServiceAttrs.Key, listitems);
+            await LocalStorage.SetItemAsync(key, listitems);
         }
 
 

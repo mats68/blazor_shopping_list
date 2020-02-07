@@ -13,6 +13,7 @@ const requiredFiles = [
 "/_framework/wasm/mono.wasm",
 "/_framework/_bin/Blazored.LocalStorage.dll",
 "/_framework/_bin/Einkaufsliste.dll",
+"/_framework/_bin/Einkaufsliste.pdb",
 "/_framework/_bin/Microsoft.AspNetCore.Authorization.dll",
 "/_framework/_bin/Microsoft.AspNetCore.Blazor.dll",
 "/_framework/_bin/Microsoft.AspNetCore.Blazor.HttpClient.dll",

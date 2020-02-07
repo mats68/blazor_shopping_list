@@ -1,5 +1,4 @@
-﻿using Einkaufsliste.Components.ListExt;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,11 @@ namespace Einkaufsliste.Components
     public class ListExtBase : ComponentBase
     {
         [Parameter]
-        public ListService ListService { get; set; }
+        public ListExtViewModel ListExtViewModel { get; set; }
+        [Parameter]
+        public string NewItemText { get; set; }
+        [Parameter]
+        public bool ShowIsDoneButton { get; set; }
         [Parameter]
         public RenderFragment HeaderButtons { get; set; }
         [Parameter]
@@ -29,7 +32,7 @@ namespace Einkaufsliste.Components
         {
             get
             {
-                return ListService.ListItems;
+                return ListExtViewModel.ListItems;
             }
         }
 
@@ -40,59 +43,59 @@ namespace Einkaufsliste.Components
 
         public async Task AddItem()
         {
-            await ListService.AddItem(new ListItem() { Title = newItem });
+            await ListExtViewModel.AddItem(new ListItem() { Title = newItem });
             newItem = string.Empty;
             await Focus(editNameRef);
         }
 
         public async Task Delete(ListItem item)
         {
-            await ListService.DeleteItem(item);
+            await ListExtViewModel.DeleteItem(item);
         }
 
         public async Task Up()
         {
-            if (ListService.CurrentItem != null)
+            if (ListExtViewModel.CurrentItem != null)
             {
-                await ListService.Up(ListService.CurrentItem);
+                await ListExtViewModel.Up(ListExtViewModel.CurrentItem);
             }
         }
 
         public async Task Down()
         {
-            if (ListService.CurrentItem != null)
+            if (ListExtViewModel.CurrentItem != null)
             {
-                await ListService.Down(ListService.CurrentItem);
+                await ListExtViewModel.Down(ListExtViewModel.CurrentItem);
             }
         }
 
         public void SetCurrent(ListItem item)
         {
-            ListService.CurrentItem = item;
+            ListExtViewModel.CurrentItem = item;
         }
 
         public string SortTitle
         {
-            get { return ListService.IsSortByName ? "Nach Eintragung sortieren" : "Nach Namen sortieren"; }
+            get { return ListExtViewModel.IsSortByName ? "Nach Eintragung sortieren" : "Nach Namen sortieren"; }
         }
         public string FilterTitle
         {
-            get { return ListService.IsFiltered ? "Alle anzeigen" : "Erledigte ausblenden"; }
+            get { return ListExtViewModel.IsFiltered ? "Alle anzeigen" : "Erledigte ausblenden"; }
         }
 
         public void Sort()
         {
-            ListService.IsSortByName = !ListService.IsSortByName;
+            ListExtViewModel.IsSortByName = !ListExtViewModel.IsSortByName;
         }
 
         public void Filter()
         {
-            ListService.IsFiltered = !ListService.IsFiltered;
+            ListExtViewModel.IsFiltered = !ListExtViewModel.IsFiltered;
         }
 
         public async Task ToggleIsDone(ListItem item)
         {
-            await ListService.ToggleIsDone(item);
+            await ListExtViewModel.ToggleIsDone(item);
         }
 
         public void ToggleDeleteButtons()
@@ -102,7 +105,7 @@ namespace Einkaufsliste.Components
 
         public string ClassActive(ListItem item)
         {
-            return ListService.CurrentItem == item ? "list-group-item list-group-item-action active" : "list-group-item list-group-item-action";
+            return ListExtViewModel.CurrentItem == item ? "list-group-item list-group-item-action active" : "list-group-item list-group-item-action";
         }
 
         public string ClassText(ListItem item)
@@ -121,8 +124,8 @@ namespace Einkaufsliste.Components
         {
             var c = (bool)checkedValue;
 
-            if (c && !ListService.SelectedItems.Contains(item.Title)) ListService.SelectedItems.Add(item.Title);
-            if (!c && ListService.SelectedItems.Contains(item.Title)) ListService.SelectedItems.Remove(item.Title);
+            if (c && !ListExtViewModel.SelectedItems.Contains(item.Title)) ListExtViewModel.SelectedItems.Add(item.Title);
+            if (!c && ListExtViewModel.SelectedItems.Contains(item.Title)) ListExtViewModel.SelectedItems.Remove(item.Title);
             
         }
 
@@ -134,7 +137,7 @@ namespace Einkaufsliste.Components
 
         protected override async Task OnInitializedAsync()
         {
-            await ListService.Load();
+            await ListExtViewModel.Load();
         }
 
     }

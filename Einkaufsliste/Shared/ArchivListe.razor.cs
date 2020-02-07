@@ -1,5 +1,5 @@
 ﻿using Blazored.LocalStorage;
-using Einkaufsliste.Components.ListExt;
+using Einkaufsliste.Components;
 using Einkaufsliste.Services;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -17,7 +17,7 @@ namespace Einkaufsliste.Shared
         ILocalStorageService LocalStorage { get; set; }
 
         public string Current { get; set; }
-        public ListService CurrentList { get; set; }
+        public ListExtViewModel CurrentList { get; set; }
 
 
         protected override async Task OnInitializedAsync()
@@ -36,13 +36,15 @@ namespace Einkaufsliste.Shared
             else
             {
                 Current = item;
-                CurrentList = new ListService(LocalStorage, new ListServiceAttrs()
-                {
-                    Key = Current,
-                    ShowIsDoneButton = false
-                });
+                CurrentList = new ListExtViewModel(LocalStorage, Current);
             }
 
         }
+
+        public string IconExpand(string item)
+        {
+            return Current == item ? "oi-caret-top" : "oi-caret-bottom";
+        }
+
     }
 }

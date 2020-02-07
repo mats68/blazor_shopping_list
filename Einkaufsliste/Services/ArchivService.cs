@@ -1,5 +1,5 @@
 ﻿using Blazored.LocalStorage;
-using Einkaufsliste.Components.ListExt;
+using Einkaufsliste.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;

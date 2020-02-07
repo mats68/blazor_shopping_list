@@ -1,14 +1,14 @@
 ﻿@inherits ListExtBase
 
-@if (ListService?.ListItems != null)
+@if (ListExtViewModel?.ListItems != null)
 {
 
     @if (!HideHeader)
     {
         <div class="row">
             <div class="col-10">
-                <button @onclick="Sort" class="btn @ClassBtnPressed(ListService.IsSortByName)" title="@SortTitle"><span class="oi oi-sort-ascending" /> </button>
-                <button @onclick="Filter" class="btn @ClassBtnPressed(ListService.IsFiltered)" title="@FilterTitle"><span class="oi oi-beaker" /> </button>
+                <button @onclick="Sort" class="btn @ClassBtnPressed(ListExtViewModel.IsSortByName)" title="@SortTitle"><span class="oi oi-sort-ascending" /> </button>
+                <button @onclick="Filter" class="btn @ClassBtnPressed(ListExtViewModel.IsFiltered)" title="@FilterTitle"><span class="oi oi-beaker" /> </button>
                 <button @onclick="Up" class="btn btn-info" title="Nach oben"><span class="oi oi-arrow-top" /> </button>
                 <button @onclick="Down" class="btn btn-info" title="Nach unten"><span class="oi oi-arrow-bottom" /> </button>
                 @HeaderButtons
@@ -21,7 +21,7 @@
         <form @onsubmit="AddItem">
             <div class="row">
                 <div class="form-group col-10">
-                    <input @ref="editNameRef" @bind="newItem" class="form-control" placeholder="@ListService.ListServiceAttrs.NewItemText" />
+                    <input @ref="editNameRef" @bind="newItem" class="form-control" placeholder="@NewItemText" />
                 </div>
                 <div class="form-group col-2">
                     <button type="submit" class="btn btn-primary" title="Hinzufügen"><span class="oi oi-plus" /></button>
@@ -54,7 +54,7 @@
                             <button @onclick="@(() => Delete(item))" class="btn btn-sm btn-danger" title="Löschen"><span class="oi oi-trash" /></button>
                         </div>
                     }
-                    else if (ListService.ListServiceAttrs.ShowIsDoneButton)
+                    else if (ShowIsDoneButton)
                     {
                         <div class="col-2">
                             <button @onclick="@(() => ToggleIsDone(item))" class="btn btn-sm btn-info" title="Erledigt"><span class="oi oi-check" /></button>

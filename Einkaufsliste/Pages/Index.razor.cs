@@ -1,4 +1,4 @@
-﻿using Einkaufsliste.Components.ListExt;
+﻿using Einkaufsliste.Components;
 using Einkaufsliste.Services;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -13,14 +13,6 @@ namespace Einkaufsliste.Pages
         [Inject]
         public ListServices ListServices { get; set; }
         public bool ShowFavoritenModal { get; set; }
-
-        public ListService ListEinkauf
-        {
-            get
-            {
-                return ListServices.ListEinkauf;
-            }
-        }
 
         public void ShowFavoriten()
         {

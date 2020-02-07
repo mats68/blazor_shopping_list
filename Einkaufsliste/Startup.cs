@@ -1,5 +1,4 @@
 using Blazored.LocalStorage;
-using Einkaufsliste.Components.ListExt;
 using Einkaufsliste.Services;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;

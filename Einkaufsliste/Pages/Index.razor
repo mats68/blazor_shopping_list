@@ -2,10 +2,10 @@
 @inherits IndexBase
 
 <div style="max-width:700px">
-    <ListExt ListService="ListEinkauf" IsBoldText="true">
+    <ListExt ListExtViewModel="ListServices.ListEinkauf" NewItemText="Was willst du einkaufen ?" ShowIsDoneButton="true" IsBoldText="true">
         <HeaderButtons>
             <button @onclick="ShowFavoriten" class="btn btn-info" title="Favoriten"><span class="oi oi-star" /> </button>
-            @if (ListEinkauf.AllItemsDone)
+            @if (ListServices.ListEinkauf.AllItemsDone)
             {
                 <button @onclick="Archive" class="btn btn-info" title="Liste archivieren"><span class="oi oi-file" /> </button>
             }
@@ -20,7 +20,7 @@
     <button @onclick="InsertFavoriten" class="btn btn-lg btn-primary">Ok</button>
     <br />
     <br />
-    <ListExt ListService="ListServices.ListFavoriten" HideHeader="true" IsMultiSelect="true">
+    <ListExt ListExtViewModel="ListServices.ListFavoriten" HideHeader="true" IsMultiSelect="true">
     </ListExt>
 </Modal>
 }

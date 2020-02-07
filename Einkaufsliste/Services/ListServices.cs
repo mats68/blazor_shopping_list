@@ -1,5 +1,5 @@
 ﻿using Blazored.LocalStorage;
-using Einkaufsliste.Components.ListExt;
+using Einkaufsliste.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,28 +15,16 @@ namespace Einkaufsliste.Services
         {
             LocalStorage = localStorage;
             ArchivService = archivService;
-            
-            ListEinkauf = new ListService(LocalStorage, 
-            new ListServiceAttrs()
-            {
-                Key = "cur",
-                NewItemText = "Was willst du einkaufen ?",
-                ShowIsDoneButton = true,
-            });
 
-            ListFavoriten = new ListService(LocalStorage,
-            new ListServiceAttrs()
-            {
-                Key = "fav",
-                NewItemText = "Neuen Favoriten eingeben"
-            });
+            ListEinkauf = new ListExtViewModel(LocalStorage, "cur");
+            ListFavoriten = new ListExtViewModel(LocalStorage, "fav");
         }
 
         readonly string settingsKey = "settings";
         ILocalStorageService LocalStorage { get; set; }
         public ArchivService ArchivService { get; }
-        public ListService ListEinkauf { get; set; }
-        public ListService ListFavoriten { get; set; }
+        public ListExtViewModel ListEinkauf { get; set; }
+        public ListExtViewModel ListFavoriten { get; set; }
         public Settings Settings { get; set; }
 
         public async Task LoadSettings()
