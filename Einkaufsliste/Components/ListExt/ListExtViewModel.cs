@@ -12,6 +12,8 @@ namespace Einkaufsliste.Components
         public int Id { get; set; }
         public string Title { get; set; }
         public bool IsDone { get; set; }
+        public bool IsCat { get; set; }
+        public int CatId { get; set; }
     }
 
 
@@ -74,6 +76,8 @@ namespace Einkaufsliste.Components
             {
                 var newId = listitems.Count() > 0 ? listitems.Max(e => e.Id) + 1 : 1;
                 item.Id = newId;
+                item.IsCat = false;
+                item.CatId = 0;
                 listitems.Add(item);
                 await Save();
                 CurrentItem = item;
