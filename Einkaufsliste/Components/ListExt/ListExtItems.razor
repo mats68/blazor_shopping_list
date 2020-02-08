@@ -7,9 +7,9 @@
 
             <li class="@ClassActive(Item)" @onclick="@((e) => SetCurrent(Item))" @onclick:stopPropagation="true" @key="Item.Id">
                 <div class="row">
-                    @if (IsMultiSelect)
+                    @if (IsMultiSelect && !Item.IsCat)
                     {
-                        <div class="form-group col-1">
+                        <div class="form-group col-2">
                             <input type="checkbox" class="form-control" @onchange="@(eventArgs => { ItemSelected(Item, eventArgs.Value); } )" />
                         </div>
                     }

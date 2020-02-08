@@ -56,7 +56,7 @@ namespace Einkaufsliste.Components
             get
             {
                 if (listitems.Count() == 0) return false;
-                return listitems.Where(i => !i.IsDone).Count() == 0;
+                return GetItemsForCategory(0).Where(i => !i.IsDone).Count() == 0;
             }
         }
 
@@ -112,6 +112,10 @@ namespace Einkaufsliste.Components
         public async Task DeleteItem(ListItem item)
         {
             listitems.Remove(item);
+            // todo delete orphans
+            //var query = listitems.Where(i => i.)
+
+
             await Save();
         }
 
@@ -173,8 +177,6 @@ namespace Einkaufsliste.Components
 
         public void SelectItem(ListItem item, bool val)
         {
-
-
             if (val && !SelectedItems.Contains(item.Title))
             {
                 SelectedItems.Add(item.Title);
