@@ -1,0 +1,44 @@
+﻿@inherits ListExtItemsBase
+
+@foreach (var Item in Items)
+{
+
+    <li class="@ClassActive(Item)" @onclick="@(() => SetCurrent(Item))" @key="Item.Id">
+        <div class="row">
+            @if (IsMultiSelect)
+            {
+                <div class="form-group col-1">
+                    <input type="checkbox" class="form-control" @onchange="@(eventArgs => { ItemSelected(Item, eventArgs.Value); } )" />
+                </div>
+            }
+            @if (Item.IsCat)
+            {
+                <div class="col-1">
+                    <button @onclick="@(() => ExpandFolder(Item))" class="btn btn-sm btn-info" title="Aufklappen"><span class="oi @IconExpand(Item)" /></button>
+                </div>
+            }
+
+            <div class="col-@GetColCount(Item)">
+                <span class="@ClassText(Item)">
+                    @Item.Title
+                </span>
+
+            </div>
+            @if (IsDeleteMode)
+            {
+                <div class="col-1">
+                    <button @onclick="@(() => Delete(Item))" class="btn btn-sm btn-danger" title="Löschen"><span class="oi oi-trash" /></button>
+                </div>
+            }
+            else if (ShowIsDoneButton)
+            {
+                <div class="col-2">
+                    <button @onclick="@(() => ToggleIsDone(Item))" class="btn btn-sm btn-info" title="Erledigt"><span class="oi oi-check" /></button>
+                </div>
+            }
+        </div>
+    </li>
+}
+
+
+

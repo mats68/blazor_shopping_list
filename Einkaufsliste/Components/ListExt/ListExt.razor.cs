@@ -40,12 +40,42 @@ namespace Einkaufsliste.Components
         public ElementReference editNameRef;
 
         public bool IsDeleteMode { get; set; }
+        public List<ListItem> GetListe()
+        {
+            return ListExtViewModel.ListItems.Where(i => i.CatId == 0).ToList();
+        }
 
         public async Task AddItem()
         {
             await ListExtViewModel.AddItem(new ListItem() { Title = newItem });
             newItem = string.Empty;
             await Focus(editNameRef);
+        }
+
+        public async Task AddFolder()
+        {
+            await ListExtViewModel.AddItem(new ListItem() { IsCat = true, Title = newItem });
+            newItem = string.Empty;
+            await Focus(editNameRef);
+        }
+
+        public async Task ExpandFolder(ListItem item)
+        {
+            await ListExtViewModel.ExpandItem(item);
+        }
+
+        public string GetColCount(ListItem item)
+        {
+            var anz = 10;
+            if (IsMultiSelect) anz--;
+            if (item.IsCat) anz--;
+
+            return anz.ToString();
+        }
+
+        public string IconExpand(ListItem item)
+        {
+            return item.Exp ? "oi-caret-top" : "oi-caret-bottom";
         }
 
         public async Task Delete(ListItem item)

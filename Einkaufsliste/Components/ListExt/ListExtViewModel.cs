@@ -14,6 +14,7 @@ namespace Einkaufsliste.Components
         public bool IsDone { get; set; }
         public bool IsCat { get; set; }
         public int CatId { get; set; }
+        public bool Exp { get; set; }
     }
 
 
@@ -29,9 +30,13 @@ namespace Einkaufsliste.Components
         {
             get
             {
-                if (!IsSortByName && !IsFiltered) return listitems;
+                //Func<int, List<ListItem>> f1 = cat => listitems.Where(i => i.CatId == cat).ToList()
                 var query = listitems;
-                if (IsSortByName) query = query.OrderBy(i => i.Title).ToList();
+                if (IsSortByName)
+
+                    query = query.OrderBy(i => i.CatId).ThenBy(i => i.Title).ToList();
+                else
+                    query = query.OrderBy(i => i.CatId).ThenBy(i => i.Id).ToList();
                 if (IsFiltered) query = query.Where(i => !i.IsDone).ToList();
                 return query.ToList();
             }
@@ -76,12 +81,29 @@ namespace Einkaufsliste.Components
             {
                 var newId = listitems.Count() > 0 ? listitems.Max(e => e.Id) + 1 : 1;
                 item.Id = newId;
-                item.IsCat = false;
-                item.CatId = 0;
+                var catId = 0;
+                if (CurrentItem != null)
+                {
+                    if (CurrentItem.IsCat)
+                    {
+                        catId = CurrentItem.Id;
+                    }
+                    else
+                    {
+                        catId = CurrentItem.CatId;
+                    }
+                }
+                item.CatId = catId;
                 listitems.Add(item);
                 await Save();
                 CurrentItem = item;
             }
+        }
+
+        public async Task ExpandItem(ListItem item)
+        {
+            item.Exp = !item.Exp;
+            await Save();
         }
 
         public async Task DeleteItem(ListItem item)
@@ -106,7 +128,7 @@ namespace Einkaufsliste.Components
                 var newId = item2.Id;
                 item.Id = newId;
                 item2.Id = id;
-                listitems = listitems.OrderBy(e => e.Id).ToList();
+                //listitems = listitems.OrderBy(e => e.CatId).ThenBy(e => e.Id).ToList();
                 await Save();
             }
         }
@@ -121,7 +143,7 @@ namespace Einkaufsliste.Components
                 var newId = item2.Id;
                 item.Id = newId;
                 item2.Id = id;
-                listitems = listitems.OrderBy(e => e.Id).ToList();
+                //listitems = listitems.OrderBy(e => e.CatId).ThenBy(e => e.Id).ToList();
                 await Save();
             }
 
