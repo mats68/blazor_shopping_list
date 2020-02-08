@@ -1,8 +1,11 @@
 ﻿@inherits ListExtItemsBase
 
-@foreach (var Item in Items)
+@foreach (var Item in Liste)
 {
-
+    @if(Item.CatId > 0)
+    {
+        <div style="width:20px"></div>
+    }
     <li class="@ClassActive(Item)" @onclick="@(() => SetCurrent(Item))" @key="Item.Id">
         <div class="row">
             @if (IsMultiSelect)
@@ -38,6 +41,17 @@
             }
         </div>
     </li>
+
+    @if (Item.IsCat && Item.Exp)
+    {
+        <ListExtItems CatId="Item.Id"
+                      ListExtViewModel="ListExtViewModel"
+                      ShowIsDoneButton="ShowIsDoneButton"
+                      IsMultiSelect="IsMultiSelect"
+                      IsBoldText="IsBoldText"
+                      IsDeleteMode="IsDeleteMode" />
+
+    }
 }
 
 

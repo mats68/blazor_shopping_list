@@ -1,6 +1,6 @@
 ﻿@inherits ListExtBase
 
-@if (ListExtViewModel?.ListItems != null)
+@if (Liste != null)
 {
 
     @if (!HideHeader)
@@ -35,12 +35,12 @@
     }
 
     <ul class="list-group">
-        <ListExtItems Items="GetListe()"
-                     ListExtViewModel="ListExtViewModel"
-                     ShowIsDoneButton="ShowIsDoneButton"
-                     IsMultiSelect="IsMultiSelect"
-                     IsBoldText="IsBoldText"
-                     IsDeleteMode="IsDeleteMode" />
+        <ListExtItems CatId="0"
+                      ListExtViewModel="ListExtViewModel"
+                      ShowIsDoneButton="ShowIsDoneButton"
+                      IsMultiSelect="IsMultiSelect"
+                      IsBoldText="IsBoldText"
+                      IsDeleteMode="IsDeleteMode" />
 
 
     </ul>

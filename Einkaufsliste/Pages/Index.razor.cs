@@ -21,7 +21,7 @@ namespace Einkaufsliste.Pages
 
         public async Task Archive()
         {
-            await ListServices.ArchivService.Archivieren(ListServices.ListEinkauf.ListItems);
+            //await ListServices.ArchivService.Archivieren(ListServices.ListEinkauf.ListItems);
             await ListServices.ListEinkauf.ClearList();
         }
         

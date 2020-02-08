@@ -9,8 +9,9 @@ namespace Einkaufsliste.Components
 {
     public class ListExtItemsBase : ComponentBase
     {
+        
         [Parameter]
-        public List<ListItem> Items { get; set; }
+        public int CatId { get; set; }
         [Parameter]
         public ListExtViewModel ListExtViewModel { get; set; }
         [Parameter]
@@ -21,6 +22,8 @@ namespace Einkaufsliste.Components
         public bool IsBoldText { get; set; }
         [Parameter]
         public bool IsDeleteMode { get; set; }
+
+        public List<ListItem> Liste { get; set; }
 
         public async Task ExpandFolder(ListItem item)
         {
@@ -75,6 +78,11 @@ namespace Einkaufsliste.Components
         public string IconExpand(ListItem item)
         {
             return item.Exp ? "oi-caret-top" : "oi-caret-bottom";
+        }
+
+        protected override void OnInitialized()
+        {
+            Liste = ListExtViewModel.GetItemsForCategory(CatId);
         }
 
 

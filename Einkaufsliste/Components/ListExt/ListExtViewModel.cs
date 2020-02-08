@@ -26,21 +26,28 @@ namespace Einkaufsliste.Components
 
         private ILocalStorageService LocalStorage { get; }
 
-        public List<ListItem> ListItems
+        public List<ListItem> GetItemsForCategory(int catId)
         {
-            get
-            {
-                //Func<int, List<ListItem>> f1 = cat => listitems.Where(i => i.CatId == cat).ToList()
-                var query = listitems;
-                if (IsSortByName)
-
-                    query = query.OrderBy(i => i.CatId).ThenBy(i => i.Title).ToList();
-                else
-                    query = query.OrderBy(i => i.CatId).ThenBy(i => i.Id).ToList();
-                if (IsFiltered) query = query.Where(i => !i.IsDone).ToList();
-                return query.ToList();
-            }
+            var l = listitems.Where(i => i.CatId == catId).ToList();
+            return l;
         }
+
+
+        //public List<ListItem> ListItems
+        //{
+        //    get
+        //    {
+        //        //Func<int, List<ListItem>> f1 = cat => listitems.Where(i => i.CatId == cat).ToList()
+        //        var query = listitems;
+        //        if (IsSortByName)
+
+        //            query = query.OrderBy(i => i.CatId).ThenBy(i => i.Title).ToList();
+        //        else
+        //            query = query.OrderBy(i => i.CatId).ThenBy(i => i.Id).ToList();
+        //        if (IsFiltered) query = query.Where(i => !i.IsDone).ToList();
+        //        return query.ToList();
+        //    }
+        //}
         public List<string> SelectedItems { get; set; }
 
         public bool IsSortByName { get; set; }

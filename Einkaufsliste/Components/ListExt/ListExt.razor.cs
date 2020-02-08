@@ -24,26 +24,15 @@ namespace Einkaufsliste.Components
         [Parameter]
         public bool IsBoldText { get; set; }
 
+        public List<ListItem> Liste { get; set; }
 
         [Inject]
         IJSRuntime JSRuntime { get; set; }
-
-        public List<ListItem> Liste
-        {
-            get
-            {
-                return ListExtViewModel.ListItems;
-            }
-        }
 
         public string newItem;
         public ElementReference editNameRef;
 
         public bool IsDeleteMode { get; set; }
-        public List<ListItem> GetListe()
-        {
-            return ListExtViewModel.ListItems.Where(i => i.CatId == 0).ToList();
-        }
 
         public async Task AddItem()
         {
@@ -168,6 +157,7 @@ namespace Einkaufsliste.Components
         protected override async Task OnInitializedAsync()
         {
             await ListExtViewModel.Load();
+            Liste = ListExtViewModel.GetItemsForCategory(0);
         }
 
     }
