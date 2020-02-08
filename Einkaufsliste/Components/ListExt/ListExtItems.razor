@@ -1,58 +1,58 @@
 ﻿@inherits ListExtItemsBase
 
-<ul class="list-group">
+    <ul class="list-group">
 
-    @foreach (var Item in Liste)
-    {
-
-        <li class="@ClassActive(Item)" @onclick="@(() => SetCurrent(Item))" @key="Item.Id">
-            <div class="row">
-                @if (IsMultiSelect)
-                {
-                    <div class="form-group col-1">
-                        <input type="checkbox" class="form-control" @onchange="@(eventArgs => { ItemSelected(Item, eventArgs.Value); } )" />
-                    </div>
-                }
-                @if (Item.IsCat)
-                {
-                    <div class="col-1">
-                        <button @onclick="@(() => ExpandFolder(Item))" class="btn btn-sm btn-info" title="Aufklappen"><span class="oi @IconExpand(Item)" /></button>
-                    </div>
-                }
-
-                <div class="col-@GetColCount(Item)">
-                    <span class="@ClassText(Item)">
-                        @Item.Title
-                    </span>
-
-                </div>
-                @if (IsDeleteMode)
-                {
-                    <div class="col-1">
-                        <button @onclick="@(() => Delete(Item))" class="btn btn-sm btn-danger" title="Löschen"><span class="oi oi-trash" /></button>
-                    </div>
-                }
-                else if (ShowIsDoneButton)
-                {
-                    <div class="col-2">
-                        <button @onclick="@(() => ToggleIsDone(Item))" class="btn btn-sm btn-info" title="Erledigt"><span class="oi oi-check" /></button>
-                    </div>
-                }
-            </div>
-        </li>
-
-        @if (Item.IsCat && Item.Exp)
+        @foreach (var Item in Liste)
         {
-            <ListExtItems CatId="Item.Id"
-                          ListExtViewModel="ListExtViewModel"
-                          ShowIsDoneButton="ShowIsDoneButton"
-                          IsMultiSelect="IsMultiSelect"
-                          IsBoldText="IsBoldText"
-                          IsDeleteMode="IsDeleteMode" />
 
+            <li class="@ClassActive(Item)" @onclick="@((e) => SetCurrent(Item))" @onclick:stopPropagation="true" @key="Item.Id">
+                <div class="row">
+                    @if (IsMultiSelect)
+                    {
+                        <div class="form-group col-1">
+                            <input type="checkbox" class="form-control" @onchange="@(eventArgs => { ItemSelected(Item, eventArgs.Value); } )" />
+                        </div>
+                    }
+                    @if (Item.IsCat)
+                    {
+                        <div class="col-1">
+                            <button @onclick="@(() => ExpandFolder(Item))" class="btn btn-sm btn-info" title="Aufklappen"><span class="oi @IconExpand(Item)" /></button>
+                        </div>
+                    }
+
+                    <div class="col-@GetColCount(Item)">
+                        <span class="@ClassText(Item)">
+                            @Item.Title
+                        </span>
+
+                    </div>
+                    @if (IsDeleteMode)
+                    {
+                        <div class="col-1">
+                            <button @onclick="@(() => Delete(Item))" class="btn btn-sm btn-danger" title="Löschen"><span class="oi oi-trash" /></button>
+                        </div>
+                    }
+                    else if (ShowIsDoneButton)
+                    {
+                        <div class="col-2">
+                            <button @onclick="@(() => ToggleIsDone(Item))" class="btn btn-sm btn-info" title="Erledigt"><span class="oi oi-check" /></button>
+                        </div>
+                    }
+                </div>
+
+                @if (Item.IsCat && Item.Exp)
+                {
+                    <ListExtItems CatId="Item.Id"
+                                  ListExtViewModel="ListExtViewModel"
+                                  ShowIsDoneButton="ShowIsDoneButton"
+                                  IsMultiSelect="IsMultiSelect"
+                                  IsBoldText="IsBoldText"
+                                  IsDeleteMode="IsDeleteMode" />
+
+                }
+            </li>
         }
-    }
-</ul>
+    </ul>
 
 
 
