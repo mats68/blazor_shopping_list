@@ -9,7 +9,7 @@ namespace Einkaufsliste.Components
 {
     public class ListExtItemsBase : ComponentBase
     {
-        
+
         [Parameter]
         public int CatId { get; set; }
         [Parameter]
@@ -46,7 +46,7 @@ namespace Einkaufsliste.Components
 
         public void SetCurrent(ListItem item)
         {
-            ListExtViewModel.CurrentItem = item;
+            ListExtViewModel.CurrentItem = ListExtViewModel.CurrentItem != item ? item : null;
         }
 
         public async Task ToggleIsDone(ListItem item)
@@ -72,7 +72,7 @@ namespace Einkaufsliste.Components
 
             if (c && !ListExtViewModel.SelectedItems.Contains(item.Title)) ListExtViewModel.SelectedItems.Add(item.Title);
             if (!c && ListExtViewModel.SelectedItems.Contains(item.Title)) ListExtViewModel.SelectedItems.Remove(item.Title);
-            
+
         }
 
         public string IconExpand(ListItem item)
