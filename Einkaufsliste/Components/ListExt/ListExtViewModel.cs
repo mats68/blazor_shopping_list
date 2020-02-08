@@ -28,8 +28,17 @@ namespace Einkaufsliste.Components
 
         public List<ListItem> GetItemsForCategory(int catId)
         {
-            var l = listitems.Where(i => i.CatId == catId).ToList();
-            return l;
+            var query = listitems.Where(i => i.CatId == catId).OrderBy(i => i.IsCat).ThenBy(i => i.CatId);
+            if (IsSortByName)
+            {
+                query = query.ThenBy(i => i.Title);
+            }
+            else
+            {
+                query = query.ThenBy(i => i.Id);
+            }
+            //if (IsFiltered) query = query.Where(i => !i.IsDone);
+            return query.ToList();
         }
 
         public event EventHandler StateChanged;
@@ -168,6 +177,7 @@ namespace Einkaufsliste.Components
         private async Task Save()
         {
             await LocalStorage.SetItemAsync(key, listitems);
+            StateChanged(null, null);
         }
 
         public void SetCurrent(ListItem item)
