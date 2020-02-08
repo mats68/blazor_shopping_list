@@ -79,8 +79,8 @@ namespace Einkaufsliste.Components
 
         public async Task AddItem(ListItem item)
         {
-            var found = listitems.Find(i => string.Equals(i.Title.ToLower(), item.Title.ToLower()));
-            if (!string.IsNullOrWhiteSpace(item.Title) && found == null)
+            //var found = listitems.Find(i => string.Equals(i.Title.ToLower(), item.Title.ToLower()));
+            if (!string.IsNullOrWhiteSpace(item.Title))
             {
                 var newId = listitems.Count() > 0 ? listitems.Max(e => e.Id) + 1 : 1;
                 item.Id = newId;
