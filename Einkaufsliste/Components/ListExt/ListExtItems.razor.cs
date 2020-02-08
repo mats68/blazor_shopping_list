@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,13 @@ namespace Einkaufsliste.Components
         [Parameter]
         public bool IsDeleteMode { get; set; }
 
-        public List<ListItem> Liste { get; set; }
+        public List<ListItem> Liste
+        {
+            get
+            {
+                return ListExtViewModel.GetItemsForCategory(CatId);
+            }
+        }
 
         public async Task ExpandFolder(ListItem item)
         {
@@ -46,7 +53,7 @@ namespace Einkaufsliste.Components
 
         public void SetCurrent(ListItem item)
         {
-            ListExtViewModel.CurrentItem = ListExtViewModel.CurrentItem != item ? item : null;
+            ListExtViewModel.SetCurrent(item);
         }
 
         public async Task ToggleIsDone(ListItem item)
@@ -68,23 +75,13 @@ namespace Einkaufsliste.Components
 
         public void ItemSelected(ListItem item, object checkedValue)
         {
-            var c = (bool)checkedValue;
-
-            if (c && !ListExtViewModel.SelectedItems.Contains(item.Title)) ListExtViewModel.SelectedItems.Add(item.Title);
-            if (!c && ListExtViewModel.SelectedItems.Contains(item.Title)) ListExtViewModel.SelectedItems.Remove(item.Title);
-
+            ListExtViewModel.SelectItem(item, (bool)checkedValue);
         }
 
         public string IconExpand(ListItem item)
         {
             return item.Exp ? "oi-caret-top" : "oi-caret-bottom";
         }
-
-        protected override void OnInitialized()
-        {
-            Liste = ListExtViewModel.GetItemsForCategory(CatId);
-        }
-
 
     }
 }

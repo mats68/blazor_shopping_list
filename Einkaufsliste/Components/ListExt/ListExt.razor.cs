@@ -24,8 +24,6 @@ namespace Einkaufsliste.Components
         [Parameter]
         public bool IsBoldText { get; set; }
 
-        public List<ListItem> Liste { get; set; }
-
         [Inject]
         IJSRuntime JSRuntime { get; set; }
 
@@ -77,6 +75,7 @@ namespace Einkaufsliste.Components
             if (ListExtViewModel.CurrentItem != null)
             {
                 await ListExtViewModel.Up(ListExtViewModel.CurrentItem);
+                StateHasChanged();
             }
         }
 
@@ -85,12 +84,8 @@ namespace Einkaufsliste.Components
             if (ListExtViewModel.CurrentItem != null)
             {
                 await ListExtViewModel.Down(ListExtViewModel.CurrentItem);
+                StateHasChanged();
             }
-        }
-
-        public void SetCurrent(ListItem item)
-        {
-            ListExtViewModel.CurrentItem = item;
         }
 
         public string SortTitle
@@ -134,18 +129,14 @@ namespace Einkaufsliste.Components
             return s + s1;
         }
 
+        public void OnStateChanged(object sender, EventArgs e)
+        {
+            StateHasChanged();
+        }
+
         public string ClassBtnPressed(bool pressed)
         {
             return pressed ? "btn-outline-info" : "btn-info";
-        }
-
-        public void ItemSelected(ListItem item, object checkedValue)
-        {
-            var c = (bool)checkedValue;
-
-            if (c && !ListExtViewModel.SelectedItems.Contains(item.Title)) ListExtViewModel.SelectedItems.Add(item.Title);
-            if (!c && ListExtViewModel.SelectedItems.Contains(item.Title)) ListExtViewModel.SelectedItems.Remove(item.Title);
-            
         }
 
         public async Task Focus(ElementReference elementRef)
@@ -157,7 +148,7 @@ namespace Einkaufsliste.Components
         protected override async Task OnInitializedAsync()
         {
             await ListExtViewModel.Load();
-            Liste = ListExtViewModel.GetItemsForCategory(0);
+            ListExtViewModel.StateChanged += new EventHandler(OnStateChanged);
         }
 
     }

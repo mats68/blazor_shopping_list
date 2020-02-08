@@ -32,6 +32,8 @@ namespace Einkaufsliste.Components
             return l;
         }
 
+        public event EventHandler StateChanged;
+
 
         //public List<ListItem> ListItems
         //{
@@ -168,6 +170,26 @@ namespace Einkaufsliste.Components
             await LocalStorage.SetItemAsync(key, listitems);
         }
 
+        public void SetCurrent(ListItem item)
+        {
+            CurrentItem = CurrentItem != item ? item : null;
+            StateChanged(null, null);
+        }
+
+        public void SelectItem(ListItem item, bool val)
+        {
+
+
+            if (val && !SelectedItems.Contains(item.Title))
+            {
+                SelectedItems.Add(item.Title);
+            }
+            if (!val && SelectedItems.Contains(item.Title))
+            {
+                SelectedItems.Remove(item.Title);
+            }
+
+        }
 
 
     }
