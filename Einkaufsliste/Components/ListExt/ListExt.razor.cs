@@ -41,7 +41,7 @@ namespace Einkaufsliste.Components
 
         public async Task AddFolder()
         {
-            await ListExtViewModel.AddItem(new ListItem() { IsCat = true, Title = newItem });
+            await ListExtViewModel.AddItem(new ListItem() { IsCat = true, Exp = true, Title = newItem });
             newItem = string.Empty;
             await Focus(editNameRef);
         }
@@ -92,6 +92,7 @@ namespace Einkaufsliste.Components
         {
             get { return ListExtViewModel.IsSortByName ? "Nach Eintragung sortieren" : "Nach Namen sortieren"; }
         }
+
         public string FilterTitle
         {
             get { return ListExtViewModel.IsFiltered ? "Alle anzeigen" : "Erledigte ausblenden"; }

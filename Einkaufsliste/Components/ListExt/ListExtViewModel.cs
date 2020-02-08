@@ -28,37 +28,22 @@ namespace Einkaufsliste.Components
 
         public List<ListItem> GetItemsForCategory(int catId)
         {
-            var query = listitems.Where(i => i.CatId == catId).OrderBy(i => i.IsCat).ThenBy(i => i.CatId);
+            var query = listitems.Where(i => i.CatId == catId).ToList();
+            if (IsFiltered) query = query.Where(i => !i.IsDone).ToList();
+            var query2 = query.OrderBy(i => i.IsCat).ThenBy(i => i.CatId);
             if (IsSortByName)
             {
-                query = query.ThenBy(i => i.Title);
+                query2 = query2.ThenBy(i => i.Title);
             }
             else
             {
-                query = query.ThenBy(i => i.Id);
+                query2 = query2.ThenBy(i => i.Id);
             }
-            //if (IsFiltered) query = query.Where(i => !i.IsDone);
-            return query.ToList();
+            return query2.ToList();
         }
 
         public event EventHandler StateChanged;
 
-
-        //public List<ListItem> ListItems
-        //{
-        //    get
-        //    {
-        //        //Func<int, List<ListItem>> f1 = cat => listitems.Where(i => i.CatId == cat).ToList()
-        //        var query = listitems;
-        //        if (IsSortByName)
-
-        //            query = query.OrderBy(i => i.CatId).ThenBy(i => i.Title).ToList();
-        //        else
-        //            query = query.OrderBy(i => i.CatId).ThenBy(i => i.Id).ToList();
-        //        if (IsFiltered) query = query.Where(i => !i.IsDone).ToList();
-        //        return query.ToList();
-        //    }
-        //}
         public List<string> SelectedItems { get; set; }
 
         public bool IsSortByName { get; set; }
@@ -146,7 +131,7 @@ namespace Einkaufsliste.Components
                 var newId = item2.Id;
                 item.Id = newId;
                 item2.Id = id;
-                //listitems = listitems.OrderBy(e => e.CatId).ThenBy(e => e.Id).ToList();
+                listitems = listitems.OrderBy(i => i.IsCat).ThenBy(i => i.CatId).ThenBy(i => i.Id).ToList();
                 await Save();
             }
         }
@@ -161,7 +146,7 @@ namespace Einkaufsliste.Components
                 var newId = item2.Id;
                 item.Id = newId;
                 item2.Id = id;
-                //listitems = listitems.OrderBy(e => e.CatId).ThenBy(e => e.Id).ToList();
+                listitems = listitems.OrderBy(i => i.IsCat).ThenBy(i => i.CatId).ThenBy(i => i.Id).ToList();
                 await Save();
             }
 
