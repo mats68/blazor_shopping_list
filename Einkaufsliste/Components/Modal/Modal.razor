@@ -4,14 +4,12 @@
     <div class="modal-dialog" style="overflow-y:initial">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Favoriten einfügen</h3>
-                <button type="button" class="close"
-                        @onclick="OnCloseClick">
-                    <span aria-hidden="true">X</span>
-                </button>
+                <h3 class="modal-title">@Title</h3>
+              
+                @ModalHeader
             </div>
             <div class="modal-body" style="height: 500px;overflow-y: auto;">
-                @ChildContent
+                @ModalBody
             </div>
         </div>
     </div>

@@ -10,9 +10,13 @@ namespace Einkaufsliste.Components
     public class ModalBase: ComponentBase
     {
         [Parameter]
+        public string Title { get; set; }
+        [Parameter]
         public EventCallback<MouseEventArgs> OnCloseClick { get; set; }
         [Parameter]
-        public RenderFragment ChildContent { get; set; }
+        public RenderFragment ModalHeader { get; set; }
+        [Parameter]
+        public RenderFragment ModalBody { get; set; }
 
     }
 }

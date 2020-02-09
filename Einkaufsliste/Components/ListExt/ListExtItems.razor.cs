@@ -40,7 +40,7 @@ namespace Einkaufsliste.Components
         public string GetColCount(ListItem item)
         {
             var anz = 10;
-            if (IsMultiSelect && !item.IsCat) anz-=2;
+            if (IsMultiSelect && !item.IsCat) anz-=3;
             if (item.IsCat) anz-=1;
 
             return anz.ToString();

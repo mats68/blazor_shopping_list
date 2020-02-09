@@ -15,12 +15,19 @@
 
 @if (ShowFavoritenModal)
 {
-<Modal OnCloseClick="CloseFavoriten">
-    <br />
-    <button @onclick="InsertFavoriten" class="btn btn-lg btn-primary">Ok</button>
-    <br />
-    <br />
-    <ListExt ListExtViewModel="ListServices.ListFavoriten" HideHeader="true" IsMultiSelect="true">
-    </ListExt>
+<Modal Title="Favoriten einfügen" OnCloseClick="CloseFavoriten">
+    <ModalHeader>
+        <div class="row">
+            <div class="col">
+                <button @onclick="InsertFavoriten" class="btn btn-lg btn-primary">Ok</button>
+            </div>
+        </div>
+    </ModalHeader>
+    <ModalBody>
+        <div>
+            <ListExt ListExtViewModel="ListServices.ListFavoriten" HideHeader="true" IsMultiSelect="true">
+            </ListExt>
+        </div>
+    </ModalBody>
 </Modal>
 }

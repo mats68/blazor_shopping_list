@@ -9,7 +9,7 @@
                 <div class="row">
                     @if (IsMultiSelect && !Item.IsCat)
                     {
-                        <div class="form-group col-2">
+                        <div class="form-group col-3">
                             <input type="checkbox" class="form-control" @onchange="@(eventArgs => { ItemSelected(Item, eventArgs.Value); } )" />
                         </div>
                     }

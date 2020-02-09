@@ -101,11 +101,13 @@ namespace Einkaufsliste.Components
         public void Sort()
         {
             ListExtViewModel.IsSortByName = !ListExtViewModel.IsSortByName;
+            Task.Run(() => Focus(editNameRef));
         }
 
         public void Filter()
         {
             ListExtViewModel.IsFiltered = !ListExtViewModel.IsFiltered;
+            Task.Run(() => Focus(editNameRef));
         }
 
         public async Task ToggleIsDone(ListItem item)
