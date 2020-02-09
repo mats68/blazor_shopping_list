@@ -23,14 +23,11 @@
         <hr />
         <form @onsubmit="AddItem">
             <div class="form-row">
-                <div class="col-9">
+                <div class="col-10">
                     <input @ref="editNameRef" @bind="newItem" class="form-control" placeholder="@NewItemText" />
                 </div>
                 <div class="col-2">
                     <button type="submit" class="btn btn-sm btn-primary" title="Hinzufügen"><span class="oi oi-plus" /></button>
-                </div>
-                <div class="col-1">
-                    <button class="btn btn-sm btn-warning" @onclick="AddFolder" title="Ordner hinzufügen"><span class="oi oi-folder" /></button>
                 </div>
             </div>
         </form>
