@@ -23,6 +23,8 @@ namespace Einkaufsliste.Components
         public bool IsMultiSelect { get; set; }
         [Parameter]
         public bool IsBoldText { get; set; }
+        [Parameter]
+        public bool ShowAddCategories { get; set; }
 
         [Inject]
         IJSRuntime JSRuntime { get; set; }
@@ -56,6 +58,14 @@ namespace Einkaufsliste.Components
             var anz = 10;
             if (IsMultiSelect) anz--;
             if (item.IsCat) anz--;
+
+            return anz.ToString();
+        }
+
+        public string GetColCountEdit()
+        {
+            var anz = 10;
+            if (ShowAddCategories) anz-=2;
 
             return anz.ToString();
         }

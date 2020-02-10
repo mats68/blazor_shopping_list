@@ -23,12 +23,18 @@
         <hr />
         <form @onsubmit="AddItem">
             <div class="form-row">
-                <div class="col-10">
+                <div class="col-@GetColCountEdit()">
                     <input @ref="editNameRef" @bind="newItem" class="form-control" placeholder="@NewItemText" />
                 </div>
                 <div class="col-2">
                     <button type="submit" class="btn btn-sm btn-primary" title="Hinzufügen"><span class="oi oi-plus" /></button>
                 </div>
+                @if (ShowAddCategories)
+                {
+                    <div class="col-2">
+                        <button @onclick="AddFolder" class="btn btn-sm btn-warning" title="Ordner Hinzufügen"><span class="oi oi-folder" /></button>
+                    </div>
+                }
             </div>
         </form>
     }
