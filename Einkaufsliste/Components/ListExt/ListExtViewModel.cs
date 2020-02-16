@@ -28,17 +28,10 @@ namespace Einkaufsliste.Components
 
         public List<ListItem> GetItemsForCategory(int catId)
         {
-            var query = listitems.Where(i => i.CatId == catId).ToList();
-            if (IsFiltered) query = query.Where(i => !i.IsDone).ToList();
+            var query = listitems.Where(i => i.CatId == catId);
+            if (IsFiltered) query = query.Where(i => !i.IsDone);
             var query2 = query.OrderBy(i => i.IsCat).ThenBy(i => i.CatId);
-            if (IsSortByName)
-            {
-                query2 = query2.ThenBy(i => i.Title);
-            }
-            else
-            {
-                query2 = query2.ThenBy(i => i.Id);
-            }
+            if (IsSortByName) query2 = query2.ThenBy(i => i.Title); else query2 = query2.ThenBy(i => i.Id);
             return query2.ToList();
         }
 
